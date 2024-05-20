@@ -1,5 +1,8 @@
 import React from 'react';
 import { GraphQLClient, gql } from 'graphql-request';
+import TheBar from '@/components/product/theBar';
+import MenuList from '@/components/menuList/menuList';
+import styles from './index.module.css';
 
 const hygraph = new GraphQLClient(
   process.env.HYGRAPH_ENDPOINT,
@@ -11,7 +14,19 @@ const hygraph = new GraphQLClient(
 
 export default function Home({data}){
     console.log('data is', data)
-  return <div>Home</div>
+  return(
+    <div className='body'>
+      <div>
+      <MenuList className="menu"/>
+      </div>
+      <div className='mainSection'>
+      <TheBar />
+      <div className='theCard'>
+        Home
+      </div>
+      </div>
+    </div>
+  ) 
 }
 
 const MyQuery = gql`
