@@ -1,9 +1,10 @@
 .bar{
-    background-color: #c4b58d;
-    margin-top: 3%;
+    background-color: #b6ab8e;
+    /* margin-top: 2%; */
     text-align: center;
+    border-radius: 5px 5px 0 0;
 }
 
 .menu{
-    padding: .3%;
+    padding: .8%;
 }

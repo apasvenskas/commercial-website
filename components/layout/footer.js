@@ -6,7 +6,7 @@ export default function Footer(){
 
     return (
         <div className={styles.footer}>
-            @: Laisvieji Menininkai {date}
+            @ Laisvieji Menininkai {date}
         </div>
     ) 
 }

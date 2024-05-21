@@ -1,13 +1,13 @@
 .topHeader {
     display: flex;
     justify-content: space-between;
-    background-color: #c4b58d;
+    background-color: #b6ab8e;
 }
 
 .name {
-    margin-top: 2.5%;
-    margin-bottom: 2.5%;
-    margin-left: 2.5%;
+    margin-top: 1.5%;
+    margin-bottom: 1%;
+    margin-left: 5%;
     text-align: start;
 }
 
@@ -16,7 +16,7 @@
     align-items: center;
     justify-content: space-between; 
     flex: .4; /* This will allow the nav to expand and use up available space */
-    margin-right: 3%; 
+    margin-right: 5%; 
 }
 
 .link {

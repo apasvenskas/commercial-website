@@ -7,7 +7,7 @@ export default function Navigation(){
         <div className={styles.topHeader}>
             <div className={styles.name}>
                 <Link href="/">
-                    <h1>Laisvieji Menininkai</h1>
+                    <h1>Laisvieji <br/> Menininkai</h1>
                 </Link>
             </div>
             <nav className={styles.nav}>

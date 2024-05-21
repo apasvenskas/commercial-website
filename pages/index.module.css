@@ -1,0 +1,17 @@
+.body{
+    display: flex;
+    flex-direction: row;
+    gap: 5%;
+    margin-top: 2%;
+}
+
+.menuDiv{
+    /* background-color: #b6ab8e; */
+    /* padding: 1%; */
+    margin-left: 5%;
+}
+
+.mainSection{
+    width: 100%;
+    margin-right: 5%;
+}
