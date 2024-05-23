@@ -4,10 +4,10 @@ import styles from "./menuList.module.css";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const graphcms = new GraphQLClient(process.env.
-  GRAPHCMS_ENDPOINT, {
+const hygraph = new GraphQLClient(process.env.
+  NEXT_PUBLIC_HYGRAPH_ENDPOINT, {
     headers: {
-    Authorization: `Baerer ${process.env.GRAPHCMS_TOKEN}`,
+    Authorization: `Bearer ${process.env.NEXT_PUBLIC_HYGRAPH_TOKEN}`,
     },
 })
 
@@ -27,13 +27,30 @@ export default function MenuList() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    console.log(" menu data is", data);
+   
     async function getMenuItems(){
-      const data = await graphcms.request(query)
+      const data = await hygraph.request(query)
       setData(data)
     }
     getMenuItems()
   }, [])
+
+  console.log(" menu data is", data);
+
+  // data manipulation from the useEffect (converting it into array and more legitemate work format)
+  const productsArr = Object.values(data);
+  const productListArr = Object.keys(data);
+
+  // productListArr.map((item, idx) => {
+  //   const spaced = item.replace(/_/g, ' '); // Replace underscores with spaces
+  //   const listItemTitle = spaced.charAt(0).toUpperCase() + spaced.slice(1); // upper case the first letter
+  //   const productType = productsArr[idx].map((item, idx) => {
+  //     return item.type; 
+  //   })
+  //   console.log('type', productType)
+  // })
+  
+  // the end of data work
 
   return (
     <div className={styles.leftMenu}>
@@ -45,6 +62,16 @@ export default function MenuList() {
         </div>
       <div className={styles.menuHeader}>
         <h3>Categories</h3>
+        {
+          productListArr.map((item, idx) => {
+            const spaced = item.replace(/_/g, ' '); // Replace underscores with spaces
+            const listItemTitle = spaced.charAt(0).toUpperCase() + spaced.slice(1); // upper case the first letter
+            const productType = productsArr[idx].map((item, idx) => {
+              return item.type; 
+            })
+            return(<ListItem />)
+          })
+        }
       </div>
       <DumyList />
     </div>
