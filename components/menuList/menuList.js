@@ -1,8 +1,8 @@
 import { GraphQLClient, gql } from "graphql-request";
 import DumyList from "./dumyList";
 import styles from "./menuList.module.css";
-import Link from "next/link";
 import { useEffect, useState } from "react";
+import ListItem from "./ListItem";
 
 const hygraph = new GraphQLClient(process.env.
   NEXT_PUBLIC_HYGRAPH_ENDPOINT, {
@@ -14,8 +14,6 @@ const hygraph = new GraphQLClient(process.env.
 const query = gql `
 query MyQuery {
   paintings {
-    artist
-    id
     title
     type
   }
@@ -63,14 +61,15 @@ export default function MenuList() {
       <div className={styles.menuHeader}>
         <h3>Categories</h3>
         {
-          productListArr.map((item, idx) => {
-            const spaced = item.replace(/_/g, ' '); // Replace underscores with spaces
-            const listItemTitle = spaced.charAt(0).toUpperCase() + spaced.slice(1); // upper case the first letter
-            const productType = productsArr[idx].map((item, idx) => {
-              return item.type; 
+            productListArr.map((item, idx) => {
+              const spaced = item.replace(/_/g, ' '); // Replace underscores with spaces
+              const listItemTitle = spaced.charAt(0).toUpperCase() + spaced.slice(1); // upper case the first letter
+              const productType = productsArr[idx].map((item, idx) => {
+                return item.type && item.title; 
+              })
+              return <ListItem key={idx} itemDetails={productsArr[idx]} itemTitle={listItemTitle} productType={productType}/>;
+              rawTitle=[item]
             })
-            return(<ListItem />)
-          })
         }
       </div>
       <DumyList />
