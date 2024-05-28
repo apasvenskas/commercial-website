@@ -4,75 +4,76 @@ import styles from "./menuList.module.css";
 import { useEffect, useState } from "react";
 import ListItem from "./ListItem";
 
-const hygraph = new GraphQLClient(process.env.
-  NEXT_PUBLIC_HYGRAPH_ENDPOINT, {
-    headers: {
+const hygraph = new GraphQLClient(process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT, {
+  headers: {
     Authorization: `Bearer ${process.env.NEXT_PUBLIC_HYGRAPH_TOKEN}`,
-    },
-})
+  },
+});
 
-const query = gql `
-query MyQuery {
-  paintings {
-    title
-    type
+const query = gql`
+  query MyQuery {
+    paintings {
+      title
+      type
+    }
   }
-}
-`
-
+`;
 
 export default function MenuList() {
   const [data, setData] = useState([]);
+  const [hoveredType, setHoveredType] = useState(null);
+  const [titles, setTitles] = useState([]);
 
   useEffect(() => {
-   
-    async function getMenuItems(){
-      const data = await hygraph.request(query)
-      setData(data)
+    async function getMenuItems() {
+      try {
+        const response = await hygraph.request(query);
+        setData(response.paintings); // Ensure this matches the structure of the fetched data
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+        setData([]);
+      }
     }
-    getMenuItems()
-  }, [])
+    getMenuItems();
+  }, []);
 
-  console.log(" menu data is", data);
+  const handleMouseOver = (type) => {
+    setHoveredType(type);
+    const filteredTitles = data.filter(item => item.type === type).map(item => item.title);
+    setTitles(filteredTitles);
+  };
 
-  // data manipulation from the useEffect (converting it into array and more legitemate work format)
-  const productsArr = Object.values(data);
-  const productListArr = Object.keys(data);
+  const handleMouseLeave = () => {
+    setHoveredType(null);
+    setTitles([]);
+  };
 
-  // productListArr.map((item, idx) => {
-  //   const spaced = item.replace(/_/g, ' '); // Replace underscores with spaces
-  //   const listItemTitle = spaced.charAt(0).toUpperCase() + spaced.slice(1); // upper case the first letter
-  //   const productType = productsArr[idx].map((item, idx) => {
-  //     return item.type; 
-  //   })
-  //   console.log('type', productType)
-  // })
-  
-  // the end of data work
+  if (!Array.isArray(data)) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className={styles.leftMenu}>
-        <div className={styles.menu}>
-            <div className={styles.menuTitleSection}>
-                <div className={styles.menuTitle}>
-                </div>
-            </div>
+      <div className={styles.menu}>
+        <div className={styles.menuTitleSection}>
+          <div className={styles.menuTitle}></div>
         </div>
+      </div>
       <div className={styles.menuHeader}>
         <h3>Categories</h3>
-        {
-            productListArr.map((item, idx) => {
-              const spaced = item.replace(/_/g, ' '); // Replace underscores with spaces
-              const listItemTitle = spaced.charAt(0).toUpperCase() + spaced.slice(1); // upper case the first letter
-              const productType = productsArr[idx].map((item, idx) => {
-                return item.type && item.title; 
-              })
-              return <ListItem key={idx} itemDetails={productsArr[idx]} itemTitle={listItemTitle} productType={productType}/>;
-              rawTitle=[item]
-            })
-        }
+        {data.map((item, idx) => (
+          <ListItem
+            key={idx}
+            item={item}
+            onMouseOver={() => handleMouseOver(item.type)}
+            onMouseLeave={handleMouseLeave}
+            titles={hoveredType === item.type ? titles : []}
+          />
+        ))}
       </div>
       <DumyList />
     </div>
   );
 }
+
+

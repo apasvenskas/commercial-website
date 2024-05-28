@@ -1,24 +1,34 @@
-export default function ListItem(props){
-    console.log('props are, ', props)
-    const {productType} = props;
+import React from "react";
+import PropTypes from "prop-types";
 
-    const handleOnMouseOver = () => {
+export default function ListItem({ item, onMouseOver, onMouseLeave, titles }) {
+  const { title, type } = item;
 
-    }
-
-    // will adjust the code to 
-    return (
-        <section onMouseOver={() => {
-            handleOnMouseOver();
-        }} 
-            onMouseLeave={() => {
-            handleOnMouseLeave();
-        }} >
-        <div>
-            <p className="p">
-                {productType}
-            </p>
-        </div>
-        </section>
-    )
+  return (
+    <section
+      onMouseOver={onMouseOver}
+      onMouseLeave={onMouseLeave}
+    >
+      <div>
+        <p className="p">{type}</p>
+        {titles.length > 0 && (
+          <div>
+            {titles.map((title, idx) => (
+              <p key={idx}>{title}</p>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  );
 }
+
+ListItem.propTypes = {
+  item: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+  }).isRequired,
+  onMouseOver: PropTypes.func.isRequired,
+  onMouseLeave: PropTypes.func.isRequired,
+  titles: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
