@@ -1,0 +1,16 @@
+.titles{
+    background-color: rgb(30, 25, 25);
+    position: absolute;
+    margin-left: 9%;
+}
+
+.typesMenu{
+    margin-top: 7%;
+}
+
+.p{
+    display: flex;
+    flex-direction: column;
+    color: rgb(227, 225, 225);
+    margin: 1%;
+}

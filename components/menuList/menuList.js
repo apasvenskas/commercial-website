@@ -61,6 +61,7 @@ export default function MenuList() {
       </div>
       <div className={styles.menuHeader}>
         <h3>Categories</h3>
+        <div className={styles.types}>
         {data.map((item, idx) => (
           <ListItem
             key={idx}
@@ -70,8 +71,9 @@ export default function MenuList() {
             titles={hoveredType === item.type ? titles : []}
           />
         ))}
+        </div>
       </div>
-      <DumyList />
+      {/* <DumyList /> */}
     </div>
   );
 }
