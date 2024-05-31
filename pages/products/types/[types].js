@@ -1,4 +1,7 @@
+import MenuList from "@/components/menuList/menuList";
+import TheBar from "@/components/product/theBar";
 import { GraphQLClient, gql } from "graphql-request";
+import styles from "./[types].module.css"
 
 const hygraph = new GraphQLClient(process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT, {
     headers: {
@@ -9,9 +12,14 @@ const hygraph = new GraphQLClient(process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT, {
 export default function TypesOfArt({data}){
     console.log('type data is', data)
     return (
-        <div>
-            Type
+      <section className={styles.body}>
+        <div className={styles.menu}>
+            <MenuList />
         </div>
+        <div className={styles.topbar}>
+          <TheBar />
+        </div>
+        </section>
     )
 }
 
