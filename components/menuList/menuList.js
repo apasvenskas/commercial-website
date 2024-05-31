@@ -1,5 +1,4 @@
 import { GraphQLClient, gql } from "graphql-request";
-import DumyList from "./dumyList";
 import styles from "./menuList.module.css";
 import { useEffect, useState } from "react";
 import ListItem from "./ListItem";
@@ -19,6 +18,10 @@ const query = gql`
   }
 `;
 
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
+
 export default function MenuList() {
   const [data, setData] = useState([]);
   const [hoveredType, setHoveredType] = useState(null);
@@ -28,7 +31,12 @@ export default function MenuList() {
     async function getMenuItems() {
       try {
         const response = await hygraph.request(query);
-        setData(response.paintings); // Ensure this matches the structure of the fetched data
+        const transformedData = response.paintings.map(item => ({
+          ...item,
+          title: capitalizeFirstLetter(item.title),
+          type: capitalizeFirstLetter(item.type),
+        }));
+        setData(transformedData); // Ensure this matches the structure of the fetched data
       } catch (error) {
         console.error("Error fetching data: ", error);
         setData([]);
