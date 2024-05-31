@@ -10,3 +10,11 @@
     width: 100%;
     margin-right: 5.5%;
 }
+
+.card{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 3%;
+    gap: 10%;
+}

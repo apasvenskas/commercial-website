@@ -73,7 +73,6 @@ export default function MenuList() {
         ))}
         </div>
       </div>
-      {/* <DumyList /> */}
     </div>
   );
 }
