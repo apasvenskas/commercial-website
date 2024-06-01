@@ -13,7 +13,7 @@ export default function Navigation(){
             <nav className={styles.nav}>
                 <ul className={styles.link}>
                     <li>
-                        <Link href="/">Artist</Link>
+                    <Link href={`/products/artist`}>Artist</Link>
                     </li>
                 </ul>
                 <ul className={styles.link}>

@@ -1,4 +1,25 @@
-.card {
+.body{
+    display: flex;
+    flex-direction: row;
+    gap: 5%;
+    margin-left: 5%;
+    margin-top: 2%;
+}
+
+.topbar{
+    width: 100%;
+    margin-right: 5.5%;
+}
+
+.artist{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 3%;
+    gap: 10%;
+}
+
+.artist li {
     align-items: center;
     background-color: rgb(255, 255, 255);
     padding: 5%;
@@ -12,6 +33,7 @@
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 
 }
 
-.card:hover {
+.artist li:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.2); 
 }
+
