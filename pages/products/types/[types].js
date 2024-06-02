@@ -25,7 +25,7 @@ export default function TypesOfArt({data}){
       console.log('productsArray', productsArray)
     return (
       <section className={styles.body}>
-        <div className={styles.menu}>
+        <div className={styles.menuDiv}>
             <MenuList />
         </div>
         <div className={styles.mainSection}>

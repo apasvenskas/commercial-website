@@ -47,7 +47,7 @@ export default function Home({ data }) {
                 legacyBehavior
               >
                 <a>
-                  <ProductCard />
+                  <ProductCard item={item}/>
                 </a>
               </Link>
             );
