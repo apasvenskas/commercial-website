@@ -28,8 +28,10 @@ export default function TypesOfArt({data}){
         <div className={styles.menu}>
             <MenuList />
         </div>
-        <div className={styles.topbar}>
-          <TheBar title={topBarType}/>
+        <div className={styles.mainSection}>
+          <div className={styles.theBarContainer}>
+            <TheBar title={topBarType} className={styles.theBar} />
+          </div>
           <div className={styles.card}>
               {productsArray.map(item => (
                  (
