@@ -42,7 +42,7 @@ export default function Home({ data }) {
           {myItems.map((item) => {
             return (
               <Link
-                href={`/promotions/${item.slug}`}
+                href={`/products/${item.slug}`}
                 key={item.id}
                 legacyBehavior
               >

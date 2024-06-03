@@ -37,7 +37,7 @@ export default function TypesOfArt({data}){
                  (
                   <Link href={`/products/${item.slug}`} key={item.id} legacyBehavior>
                     <a>
-                    <ProductCard />
+                    <ProductCard item={item}/>
                     </a>
                   </Link>
                 )
