@@ -15,8 +15,6 @@ export default function ProductCard({item}){
         mainImgSrc,
         id,
         title,
-        stock,
-        
     } = useGetPaintingDetails(item);
     
     useGetPaintingDetails(item);
@@ -26,11 +24,10 @@ export default function ProductCard({item}){
     console.log('image', formattedImgSrc)
     return(
         <div className={styles.card}>
-        <Image src={formattedImgSrc} alt={title} width={100} height={100}/>
+        <Image src={formattedImgSrc} alt={title} width={200} height={200}/>
         <h2>{title}</h2>
         <p>Price: ${price}</p>
         {isPromoProd && <p>Promo Price: ${discountPrice}</p>}
-        <p>Stock: {stock}</p>
         {isNewProduct && <span>New Arrival</span>}
         {/* Other UI elements */}
     </div>
