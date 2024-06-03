@@ -1,5 +1,6 @@
 import useGetPaintingDetails from '@/utils/useGetPainitngsDetails';
 import styles from './productCard.module.css';
+import Image from 'next/image';
 
 export default function ProductCard({item}){
 
@@ -14,14 +15,18 @@ export default function ProductCard({item}){
         mainImgSrc,
         id,
         title,
-        stock
+        stock,
+        
     } = useGetPaintingDetails(item);
     
     useGetPaintingDetails(item);
-    console.log('discount price', discountPrice)
+    
+
+    const formattedImgSrc = mainImgSrc.startsWith('http') ? mainImgSrc : `/${mainImgSrc}`;
+    console.log('image', formattedImgSrc)
     return(
         <div className={styles.card}>
-        <img src={imgSrc} alt={title} />
+        <Image src={formattedImgSrc} alt={title} width={100} height={100}/>
         <h2>{title}</h2>
         <p>Price: ${price}</p>
         {isPromoProd && <p>Promo Price: ${discountPrice}</p>}
