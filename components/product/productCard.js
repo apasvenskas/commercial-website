@@ -31,7 +31,11 @@ export default function ProductCard({ item }) {
         {isPromoProd && <p>Promo Price: ${discountPrice}</p>}
         {isNewProduct && <span>New Arrival</span>}
         {/* Other UI elements */}
+        <div className={styles.button}>
+        <button>Add to cart</button>
       </div>
+      </div>
+     
     </div>
   );
 }

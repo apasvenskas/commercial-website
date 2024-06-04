@@ -1,5 +1,6 @@
+
 const useGetPaintingDetails = (item) => {
-    console.log("item props in useHook", item);
+    // console.log("item description custome", item.description.raw.children);
 
     const insertDecimal = (num) => {
         return (num / 100).toFixed(2);
@@ -17,6 +18,8 @@ const useGetPaintingDetails = (item) => {
     const mainImgSrc = item && item.images && item.images.length > 0 ? item.images[0].url : '';
     const id = item && item.id ? item.id : '';
     const title = item && item.title ? item.title : '';
+    const subtitle = item && item.subtitle ? item.subtitle : '';
+    const mainContent = item && item.description.raw.children ? item.description.raw.children : '';
     const stock = item && item.stock ? item.stock : 0;
 
     return {
@@ -30,7 +33,9 @@ const useGetPaintingDetails = (item) => {
         mainImgSrc,
         id,
         title,
+        subtitle,
         stock,
+        mainContent
     };
 };
 

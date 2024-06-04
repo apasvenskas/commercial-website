@@ -72,6 +72,9 @@ const MyQuery = gql`
       images {
         url
       }
+      description {
+        raw
+      }
     }
   }
 `;
