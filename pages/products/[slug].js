@@ -5,6 +5,7 @@ import TheBar from "@/components/product/theBar";
 import styles from "./[slug].module.css";
 import { RichText } from "@graphcms/rich-text-react-renderer";
 import Link from "next/link";
+import Image from "next/image";
 
 const hygraph = new GraphQLClient(process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT, {
   headers: {
@@ -15,8 +16,8 @@ const hygraph = new GraphQLClient(process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT, {
 export default function SlugPage({ product }) {
   const productArray = Object.values(product);
   let item = {};
-  productArray.map((items) => {
-    items.map((i) => {
+  productArray.forEach((items) => {
+    items.forEach((i) => {
       item = i;
     });
   });
@@ -30,13 +31,14 @@ export default function SlugPage({ product }) {
     discountPrice,
     imgSrc,
     mainImgSrc,
+    mainImagesSrc,
     id,
     title,
     subtitle,
     mainContent,
   } = useGetPaintingDetails(item);
 
-  console.log("slug item is", item);
+  console.log("slug mainImagesSrc", mainImagesSrc);
 
   return (
     <section className={styles.body}>
@@ -58,30 +60,59 @@ export default function SlugPage({ product }) {
                   <p>Product Description</p>
                 </div>
                 <div className={styles.description}>
-                  <RichText
-                    content={mainContent}
-                    // renderers={{
-                    //   h1: ({ children }) => (
-                    //     <h1 className="text-normal">{children}</h1>
-                    //   ),
-                    //   h2: ({ children }) => (
-                    //     <h1 className="text-normal">{children}</h1>
-                    //   ),
-                    //   h3: ({ children }) => (
-                    //     <h1 className="text-normal">{children}</h1>
-                    //   ),
-                    //   p: ({ children }) => (
-                    //     <h1 className="text-normal">{children}</h1>
-                    //   ),
-                    //   italic: ({ children }) => (
-                    //     <h1 className="text-italic">{children}</h1>
-                    //   ),
-                    //   bold: ({ children }) => <strong>{children}</strong>,
-                    // }}
-                  />
+                  <RichText content={mainContent} />
                   <Link href="/products/artist">More from the same Artist</Link>
                 </div>
               </div>
+            </div>
+          </div>
+          <div className={styles.imageWrapper}>
+            <div className={styles.images}>
+              {mainImagesSrc.length > 0 ? (
+                mainImagesSrc.map((image, index) => (
+                  <Image
+                    key={index}
+                    src={image.url}
+                    height={150}
+                    width={150}
+                    alt={`Painting ${index}`}
+                  />
+                ))
+              ) : (
+                <p>No images available</p>
+              )}
+            </div>
+          </div>
+          <div className={styles.priceSection}>
+            <div className={styles.prices}>
+              {isPromoProd ? (
+                <div>
+                  <p className="fadedPrice">
+                    Price: ${price} <span>- {discount} % OFF</span>
+                  </p>
+                  <p className="fadedPrice">
+                    Promo Price = <span>${discountPrice}</span>
+                  </p>
+                </div>
+              ) : isNewProduct ? (
+                <div>
+                   <p className="newPainting">
+                    <span>NEW</span> Painting
+                  </p>
+                  <p className="price">
+                    Current Price ${price}
+                  </p>
+                </div>
+              ) : (
+                <div>
+                   <p className="regularPainting">
+                    <span>NEW</span> Painting
+                  </p>
+                  <p className="price">
+                    Current Price ${price}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>

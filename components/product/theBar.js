@@ -15,7 +15,7 @@ export default function TheBar() {
     <div className={styles.bar}>
       <div className={styles.productBar}>
         <div className={styles.menu}>
-          <h3>{title}</h3>
+          <h3 className={styles.title}>{title}</h3>
         </div>
       </div>
     </div>

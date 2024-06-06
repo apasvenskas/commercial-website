@@ -1,5 +1,5 @@
 .bar{
-    background-color: #b6ab8e;
+    background-color: #413512;
     /* margin-top: 2%; */
     text-align: center;
     border-radius: 5px 5px 0 0;
@@ -7,4 +7,8 @@
 
 .menu{
     padding: .8%;
+}
+
+.title{
+    color: rgb(227, 227, 227);
 }

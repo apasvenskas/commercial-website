@@ -1,4 +1,3 @@
-
 const useGetPaintingDetails = (item) => {
     // console.log("item description custome", item.description.raw.children);
 
@@ -16,6 +15,7 @@ const useGetPaintingDetails = (item) => {
     
     // Correctly accessing the images array
     const mainImgSrc = item && item.images && item.images.length > 0 ? item.images[0].url : '';
+    const mainImagesSrc = item && item.images ? item.images : []; 
     const id = item && item.id ? item.id : '';
     const title = item && item.title ? item.title : '';
     const subtitle = item && item.subtitle ? item.subtitle : '';
@@ -31,6 +31,7 @@ const useGetPaintingDetails = (item) => {
         discountPrice,
         imgSrc,
         mainImgSrc,
+        mainImagesSrc,
         id,
         title,
         subtitle,
@@ -40,5 +41,6 @@ const useGetPaintingDetails = (item) => {
 };
 
 export default useGetPaintingDetails;
+
 
 
