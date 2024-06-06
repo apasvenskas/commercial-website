@@ -35,3 +35,63 @@
     gap: 5%;
     width: 100%;
 }
+
+.productInfo {
+    margin-top: 3%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start; 
+    width: 100%; 
+}
+
+.subtitle{
+    margin: 3%;
+    margin-bottom: 10%;
+}
+
+.description{
+    margin-bottom: 5%;
+}
+
+.artistLink{
+    margin-top: 5%;
+}
+
+.descriptionSection{
+    margin: 3%;
+}
+
+.descriptionTitle{
+    margin-bottom: 3%;
+}
+
+.productDetails, .imageWrapper {
+    flex: 0 0 auto; 
+}
+
+
+.product{
+    margin: 3%;
+}
+
+.imageWrapper{
+    margin: 3%;
+    margin-left: 5%;
+}
+
+.images{
+    display: flex;
+    flex-direction: column;
+}
+
+.img{
+    margin: 3%;
+}
+
+.priceSection{
+    margin: 3%;
+}
+
+.button{
+    margin: 3%;
+}

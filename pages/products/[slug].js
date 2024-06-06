@@ -33,6 +33,7 @@ export default function SlugPage({ product }) {
     mainImgSrc,
     mainImagesSrc,
     id,
+    stock,
     title,
     subtitle,
     mainContent,
@@ -61,9 +62,50 @@ export default function SlugPage({ product }) {
                 </div>
                 <div className={styles.description}>
                   <RichText content={mainContent} />
-                  <Link href="/products/artist">More from the same Artist</Link>
+                  <Link className={styles.artistLink} href="/products/artist">More from the same Artist</Link>
                 </div>
               </div>
+            </div>
+            <div className={styles.priceSection}>
+              <div className={styles.prices}>
+                {isPromoProd ? (
+                  <div>
+                    <p className="fadedPrice">
+                      Price: ${price} <span>- {discount} % OFF</span>
+                    </p>
+                    <p className="fadedPrice">
+                      Promo Price = <span>${discountPrice}</span>
+                    </p>
+                  </div>
+                ) : isNewProduct ? (
+                  <div>
+                    <p className="newPainting">
+                      <span>NEW</span> Painting
+                    </p>
+                    <p className="price">Current Price ${price}</p>
+                  </div>
+                ) : (
+                  <div>
+                    <p className="regularPainting">
+                      <span>NEW</span> Painting
+                    </p>
+                    <p className="price">Current Price ${price}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className={styles.button}>
+              <Link href="/">
+                <button>
+                  {stock > 0 ? "Add To Cart" : "Out of Stock"}
+                  <Image
+                    src="/cart.png"
+                    height={20}
+                    width={20}
+                    alt={`Painting`}
+                  />
+                </button>
+              </Link>
             </div>
           </div>
           <div className={styles.imageWrapper}>
@@ -73,45 +115,14 @@ export default function SlugPage({ product }) {
                   <Image
                     key={index}
                     src={image.url}
-                    height={150}
-                    width={150}
-                    alt={`Painting ${index}`}
+                    height={200}
+                    width={200}
+                    alt={`Painting`}
+                    className={styles.img}
                   />
                 ))
               ) : (
                 <p>No images available</p>
-              )}
-            </div>
-          </div>
-          <div className={styles.priceSection}>
-            <div className={styles.prices}>
-              {isPromoProd ? (
-                <div>
-                  <p className="fadedPrice">
-                    Price: ${price} <span>- {discount} % OFF</span>
-                  </p>
-                  <p className="fadedPrice">
-                    Promo Price = <span>${discountPrice}</span>
-                  </p>
-                </div>
-              ) : isNewProduct ? (
-                <div>
-                   <p className="newPainting">
-                    <span>NEW</span> Painting
-                  </p>
-                  <p className="price">
-                    Current Price ${price}
-                  </p>
-                </div>
-              ) : (
-                <div>
-                   <p className="regularPainting">
-                    <span>NEW</span> Painting
-                  </p>
-                  <p className="price">
-                    Current Price ${price}
-                  </p>
-                </div>
               )}
             </div>
           </div>
