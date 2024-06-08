@@ -94,15 +94,16 @@ export default function SlugPage({ product }) {
                 )}
               </div>
             </div>
-            <div className={styles.button}>
+            <div className={styles.buttonWrap}>
               <Link href="/">
-                <button>
+                <button className={styles.button}>
                   {stock > 0 ? "Add To Cart" : "Out of Stock"}
                   <Image
                     src="/cart.png"
-                    height={20}
-                    width={20}
+                    height={12}
+                    width={13}
                     alt={`Painting`}
+                    className={styles.cart}
                   />
                 </button>
               </Link>
