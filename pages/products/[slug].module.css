@@ -48,16 +48,30 @@
     margin-bottom: 10%;
 }
 
+.descriptionTitle{
+    text-decoration: underline;;
+}
+
 .description{
     margin-bottom: 5%;
 }
 
+.link{
+    margin: 3%;
+}
 .artistLink{
-    margin-top: 5%;
+    color: rgb(79, 21, 134);
+    font-size: 16px;
+    
+}
+
+.artistLink:hover{
+    font-size: 18px;
 }
 
 .descriptionSection{
-    margin-bottom: 3%;
+    margin-bottom: 10%;
+    border-bottom: 2px solid #000;
 }
 
 .descriptionTitle{
@@ -94,6 +108,10 @@
 
 .priceSection{
     margin: 3%;
+}
+
+.off{
+    color: red;
 }
 
 .button {

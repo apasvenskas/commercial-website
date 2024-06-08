@@ -13,6 +13,10 @@ const hygraph = new GraphQLClient(process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT, {
   },
 });
 
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
+
 export default function SlugPage({ product }) {
   const productArray = Object.values(product);
   let item = {};
@@ -54,7 +58,7 @@ export default function SlugPage({ product }) {
           <div className={styles.productDetails}>
             <div className={styles.product}>
               <div className={styles.subtitle}>
-                <h3>{subtitle}</h3>
+              <h3>{capitalizeFirstLetter(subtitle)}</h3>
               </div>
               <div className={styles.descriptionSection}>
                 <div className={styles.descriptionTitle}>
@@ -62,7 +66,9 @@ export default function SlugPage({ product }) {
                 </div>
                 <div className={styles.description}>
                   <RichText content={mainContent} />
+                  <div className={styles.link}>
                   <Link className={styles.artistLink} href="/products/artist">More from the same Artist</Link>
+                  </div>
                 </div>
               </div>
             </div>
@@ -71,10 +77,10 @@ export default function SlugPage({ product }) {
                 {isPromoProd ? (
                   <div>
                     <p className="fadedPrice">
-                      Price: ${price} <span>- {discount} % OFF</span>
+                      Price: ${price} <span className={styles.off}>- {discount} % OFF</span>
                     </p>
                     <p className="fadedPrice">
-                      Promo Price = <span>${discountPrice}</span>
+                      Promo Price: <span className={styles.discountPrice}> ${discountPrice}</span>
                     </p>
                   </div>
                 ) : isNewProduct ? (
@@ -82,12 +88,12 @@ export default function SlugPage({ product }) {
                     <p className="newPainting">
                       <span>NEW</span> Painting
                     </p>
-                    <p className="price">Current Price ${price}</p>
+                    <p className="price">Current Price = ${price}</p>
                   </div>
                 ) : (
                   <div>
                     <p className="regularPainting">
-                      <span>NEW</span> Painting
+                      Painting
                     </p>
                     <p className="price">Current Price ${price}</p>
                   </div>
