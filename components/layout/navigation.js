@@ -33,7 +33,7 @@ export default function Navigation(){
                 </ul>
                 <ul className={styles.link}>
                     <li>
-                        <Link href="/">Contact</Link>
+                        <Link href="/contact">Contact</Link>
                     </li>
                 </ul>
                 <div className={styles.cartWrapper}>

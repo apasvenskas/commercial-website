@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.3.3",
     "@graphcms/rich-text-react-renderer": "^0.6.1",
     "graphql": "^16.8.1",
     "graphql-request": "^7.0.1",

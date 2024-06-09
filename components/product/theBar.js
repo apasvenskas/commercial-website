@@ -2,14 +2,14 @@ import { useRouter } from 'next/router';
 import styles from './theBar.module.css';
 
 function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-  }
+  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
 
-export default function TheBar() {
+export default function TheBar({ title: propTitle }) {
   const router = useRouter();
   const { types } = router.query;
 
-  const title = types ? capitalizeFirstLetter(types) : 'Paintings';
+  const title = propTitle || (types ? capitalizeFirstLetter(types) : 'Paintings');
 
   return (
     <div className={styles.bar}>
@@ -21,3 +21,4 @@ export default function TheBar() {
     </div>
   );
 }
+
