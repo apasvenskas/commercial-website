@@ -1,7 +1,8 @@
-import React, { useRef } from 'react';
+import React, { useRef } from "react";
 import MenuList from "@/components/menuList/menuList";
 import TheBar from "@/components/product/theBar";
 import styles from "./index.module.css";
+import emailjs from "emailjs-com";
 
 export default function Contacts() {
   const title = "Contacts";
@@ -38,22 +39,24 @@ export default function Contacts() {
           <TheBar title={title} className={styles.theBar} />
           <div className={styles.main}>
             <div className={styles.title}>
-                <h3>Contact Us</h3>
+              <h3>Contact Us</h3>
             </div>
             <div className={styles.formWraper}>
-            <form ref={form} onSubmit={sendEmail}>
-              <label>Name</label>
-              <input type="text" name="user_name" />
-              <label>Email</label>
-              <input type="email" name="user_email" />
-              <label>Message</label>
-              <textarea name="message" />
-              <input type="submit" value="Send" />
-            </form>
+              <form ref={form} onSubmit={sendEmail}>
+                <label>Name</label>
+                <input type="text" name="from_name" />
+                <label>Email</label>
+                <input type="email" name="email" />
+                <label>Subject</label>
+                <input type="text" name="subject" />
+                <label>Message</label>
+                <textarea name="message" />
+                <input type="submit" value="Send" />
+              </form>
             </div>
           </div>
         </div>
       </div>
     </>
   );
-}
+}  
