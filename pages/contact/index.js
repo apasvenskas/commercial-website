@@ -25,7 +25,8 @@ export default function Contacts() {
         },
         (error) => {
           console.log("FAILED...", error.text);
-        }
+        },
+        e.target.reset()
       );
   };
 
@@ -42,16 +43,16 @@ export default function Contacts() {
               <h3>Contact Us</h3>
             </div>
             <div className={styles.formWraper}>
-              <form ref={form} onSubmit={sendEmail}>
-                <label>Name</label>
-                <input type="text" name="from_name" />
-                <label>Email</label>
-                <input type="email" name="email" />
-                <label>Subject</label>
-                <input type="text" name="subject" />
-                <label>Message</label>
-                <textarea name="message" />
-                <input type="submit" value="Send" />
+              <form className={styles.form} ref={form} onSubmit={sendEmail}>
+                <label className={styles.label}>Name</label>
+                <input className={styles.input} type="text" name="from_name" />
+                <label className={styles.label}>Email</label>
+                <input className={styles.input} type="email" name="email" />
+                <label className={styles.label}>Subject</label>
+                <input className={styles.input} type="text" name="subject" />
+                <label className={styles.label}>Message</label>
+                <textarea name="message" className={styles.messageBox}/>
+                <input className={styles.button} type="submit" value="Send" />
               </form>
             </div>
           </div>
