@@ -92,6 +92,7 @@
   padding: 3%;
   background-color: rgb(252, 252, 252);
   border-radius: 5px;
+  max-height: 80%;
 }
 
 .cardTitle{
@@ -107,3 +108,22 @@
 .contactInfo{
     color: #000000;
 }
+
+.map {
+    margin-right: 20%;
+    margin-left: 3.1%;
+    margin-bottom: 5%;
+    margin-top: 5%;
+    border: 1px solid black;
+    width: calc(100% - 4%); /* adjust for margin */
+    height: 450px; /* fixed height or adjust as needed */
+    position: relative;
+  }
+  
+  .map iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
