@@ -44,16 +44,26 @@ export default function Contacts() {
             </div>
             <div className={styles.formWraper}>
               <form className={styles.form} ref={form} onSubmit={sendEmail}>
-                <label className={styles.label}>Name</label>
+                <label className={styles.label}>Name:</label>
                 <input className={styles.input} type="text" name="from_name" />
-                <label className={styles.label}>Email</label>
+                <label className={styles.label}>Email:</label>
                 <input className={styles.input} type="email" name="email" />
-                <label className={styles.label}>Subject</label>
+                <label className={styles.label}>Subject:</label>
                 <input className={styles.input} type="text" name="subject" />
-                <label className={styles.label}>Message</label>
+                <label className={styles.label}>Message:</label>
                 <textarea name="message" className={styles.messageBox}/>
                 <input className={styles.button} type="submit" value="Send" />
               </form>
+              <div className={styles.infoSection}>
+                <div className={styles.infoCard}>
+                  <h4 className={styles.cardTitle}>Contact Info</h4>
+                  <h4 className={styles.cardDispaly}><span className={styles.contactInfo}>Name:  </span>	Aušra Martinkutė-Juodienė</h4>
+                  <h4 className={styles.cardDispaly}><span className={styles.contactInfo}>Telephone:  </span>+370 620 64677</h4>
+                  <h4 className={styles.cardDispaly}><span className={styles.contactInfo}>Email:  </span>kynas42@gmail.com</h4>
+                  <h4 className={styles.cardDispaly}><span className={styles.contactInfo}>Address:  </span>Rotušės a. 1-15, LT-44280 Kaunas</h4>
+                  <h4 className={styles.cardDispaly}><span className={styles.contactInfo}>Location:  </span>Kaunas, Lithuania</h4>
+                </div>
+              </div>
             </div>
           </div>
         </div>
