@@ -1,0 +1,10 @@
+.theBarContainer {
+    width: 89%;
+    /* margin-right: 5%; */
+    margin-top: 2%;
+    margin-left: 5%;
+}
+
+.theBar {
+    width: 100%;
+}

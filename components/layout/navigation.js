@@ -37,7 +37,7 @@ export default function Navigation(){
                     </li>
                 </ul>
                 <div className={styles.cartWrapper}>
-                    <Link href="#"> 
+                    <Link href="/cart"> 
                         <Image src="/cart.png" height={25} width={25} alt="cart"/>
                     </Link>
                 </div>
