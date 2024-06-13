@@ -6,6 +6,7 @@ import styles from "./[slug].module.css";
 import { RichText } from "@graphcms/rich-text-react-renderer";
 import Link from "next/link";
 import Image from "next/image";
+import { useProductContext } from "@/state/context/productcontext";
 
 const hygraph = new GraphQLClient(process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT, {
   headers: {
@@ -18,6 +19,10 @@ function capitalizeFirstLetter(string) {
 }
 
 export default function SlugPage({ product }) {
+
+  const { testID, getProducts } = useProductContext();
+  console.log("ID from productCard", testID)
+
   const productArray = Object.values(product);
   let item = {};
   productArray.forEach((items) => {
@@ -43,7 +48,7 @@ export default function SlugPage({ product }) {
     mainContent,
   } = useGetPaintingDetails(item);
 
-  console.log("slug mainImagesSrc", mainImagesSrc);
+  // console.log("slug mainImagesSrc", mainImagesSrc);
 
   return (
     <section className={styles.body}>
@@ -102,7 +107,7 @@ export default function SlugPage({ product }) {
             </div>
             <div className={styles.buttonWrap}>
               <Link href="/cart">
-                <button className={styles.button}>
+                <button className={styles.button} onClick={() => getProducts(id)}>
                   {stock > 0 ? "Add To Cart" : "Out of Stock"}
                   <Image
                     src="/cart.png"
