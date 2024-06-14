@@ -2,13 +2,12 @@ import useGetPaintingDetails from "@/utils/useGetPainitngsDetails";
 import styles from "./productCard.module.css";
 import Image from "next/image";
 import { useState } from "react";
-import { useProductContext } from "@/state/context/productcontext";
+import { useProductContext } from "../../state/context/productContext";
 
 export default function ProductCard({ item }) {
 
   const { banner, setBanner } = useState(false);
-  const { testID, getProducts } = useProductContext();
-  console.log("ID from productCard", testID)
+  const { addToCart } = useProductContext();
 
   const {
     isNewProduct,
@@ -39,7 +38,7 @@ export default function ProductCard({ item }) {
         {isNewProduct && <span>New Arrival</span>}
         {/* Other UI elements */}
         <div className={styles.button}>
-        <button onClick={() => getProducts(id)}>
+        <button onClick={() => addToCart(id, title, stock, price, discount, mainImgSrc)}>
           {/* {stock > 0 ? 'Add to Cart' : 'Out of Stock'} */}
           Add to cart
         </button>

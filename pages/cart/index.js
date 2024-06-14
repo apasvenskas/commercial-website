@@ -1,14 +1,16 @@
 import TheBar from "@/components/product/theBar";
 import styles from "./index.module.css"
-import { useProductContext } from "@/state/context/productcontext";
+import { useProductContext } from "../../state/context/productContext";
 
-export default function Cart(){
-    const { testID } = useProductContext();
-    console.log("product id Cart page", testID)
+export default function AddToCart(){
+
+    const { cart, addToCart } = useProductContext();
+    console.log("product data Cart page", cart);
+
     return (
         <div className={styles.theBarContainer}>
             <TheBar className={styles.theBar} title="Cart Page"/>
-            {testID && <h3>Item with ID {testID} is in cart</h3>}
+            {/* {testID && <h3>Item with ID {data} is in cart</h3>} */}
         </div>
     )
 }
