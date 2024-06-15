@@ -8,3 +8,8 @@
 .theBar {
     width: 100%;
 }
+
+.cartItem{
+    display: flex;
+    justify-content: center;
+}

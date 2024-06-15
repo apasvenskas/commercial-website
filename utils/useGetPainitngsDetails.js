@@ -20,6 +20,7 @@ const useGetPaintingDetails = (item) => {
     const subtitle = item?.subtitle ?? '';
     const mainContent = item?.description?.raw?.children ?? '';
     const stock = item?.stock ?? 0;
+    const numItems = 1;
 
     return {
         isNewProduct,
@@ -35,7 +36,8 @@ const useGetPaintingDetails = (item) => {
         title,
         subtitle,
         stock,
-        mainContent
+        mainContent,
+        numItems,
     };
 };
 
