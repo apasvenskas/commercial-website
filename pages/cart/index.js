@@ -12,29 +12,33 @@ export default function AddToCart() {
       <div className={styles.theBarContainer}>
         <TheBar className={styles.theBar} title="Cart Page" />
       </div>
-      <div>
+      <div className={styles.header}>
         <h2>Paintings In The Cart</h2>
-        <div className={styles.cartInfoSection}>
-          <div className={styles.cartInfo}>
-            <div className={styles.infoSection}>
-              <div className={styles.columnTitle}>
-                <h4 className={styles.title}></h4>
-                <h4 className={styles.price}></h4>
-                <h4 className={styles.total}></h4>
-              </div>
+      </div>
+      <div className={styles.cartInfoSection}>
+        <div className={styles.cartInfo}>
+          <div className={styles.infoSection}>
+            <div className={styles.columnTitle}>
+              <h4 className={styles.title}>Item Title</h4>
+              <h4 className={styles.price}>Price</h4>
+              <h4 className={styles.total}>Subtotal</h4>
             </div>
           </div>
+        </div>
+        <div className={styles.fechData}>
           {cart.length ? (
-            cart.map(item => {
+            cart.map((item) => {
               return (
                 <div key={item.id}>
-                  <CartComponent />
+                  <CartComponent item={item} />
                 </div>
-              )
+              );
             })
-          ) : (<div>
-            <h2>The Cart is Empty</h2>
-          </div>)}
+          ) : (
+            <div>
+              <h2>The Cart is Empty</h2>
+            </div>
+          )}
         </div>
       </div>
     </>
