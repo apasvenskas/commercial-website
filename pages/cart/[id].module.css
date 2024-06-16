@@ -1,0 +1,134 @@
+.body{
+    display: flex;
+    flex-direction: row;
+    gap: 5%;
+    margin-top: 2%;
+}
+
+.menuSection {
+    margin-left: 5%;
+}
+
+.mainSection {
+    width: 100%;
+    margin-right: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.theBarContainer {
+    width: 100%;
+}
+
+.theBar {
+    width: 100%;
+}
+
+.card {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 3%;
+    gap: 5%;
+    width: 100%;
+}
+
+.productInfo {
+    margin-top: 3%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%; 
+}
+
+.subtitle{
+    margin-bottom: 10%;
+}
+
+.descriptionTitle{
+    text-decoration: underline;;
+}
+
+.description{
+    margin-bottom: 5%;
+}
+
+.link{
+    margin: 3%;
+}
+.artistLink{
+    color: rgb(79, 21, 134);
+    font-size: 16px;
+    
+}
+
+.artistLink:hover{
+    font-size: 18px;
+}
+
+.descriptionSection{
+    margin-bottom: 10%;
+    border-bottom: 2px solid #000;
+}
+
+.descriptionTitle{
+    margin-bottom: 3%;
+}
+
+.productDetails, .imageWrapper {
+    flex: 0 0 auto; 
+}
+
+
+.product{
+    margin-bottom: 3%;
+}
+
+.imageWrapper{
+    margin-top: 2%;
+    margin-bottom: 5%;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 
+    width: 100%;
+    border-radius: 10px;
+}
+
+.images{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.img{
+    margin: 3%;
+}
+
+.priceSection{
+    margin: 3%;
+}
+
+.off{
+    color: red;
+}
+
+.button {
+    margin: 3%;
+    padding: 1%;
+    width: 120px;
+    background-color: rgb(220, 215, 215);
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 
+}
+
+.button:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.3); 
+}
+
+
+.cart{
+    margin-left: 5%;
+}

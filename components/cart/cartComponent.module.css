@@ -1,0 +1,27 @@
+.wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 89%;
+    margin-top: 2%;
+    margin-left: 5%;
+    margin-right: 5%;
+    border: 1px solid black;
+    padding-top: 1%;
+    padding-bottom: .5%;
+    border-radius: 5px 5px 0 0;
+}
+
+.pTitle{
+    margin-bottom: 5%;
+    text-decoration: underline;
+}
+
+.title , .total{
+    margin-right: 0%;
+}
+
+/* .price{
+    color: antiquewhite;
+} */
+

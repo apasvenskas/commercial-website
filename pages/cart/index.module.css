@@ -23,36 +23,36 @@
 }
 
 .columnTitle{
-display: flex;
-flex-direction: row;
-justify-content: space-evenly;
-width: 89%;
-margin-top: 2%;
-margin-left: 5%;
-border: 1px solid black;
-padding-top: 1%;
-padding-bottom: .5%;
-border-radius: 5px 5px 0 0;
-background-color: #5c3333;
-}
-
-.title{
-    margin-right: 15%;
-    color: antiquewhite;
-}
-
-.price{
-    color: antiquewhite;
-}
-
-.total{
-    margin-left: 15%;
-    color: antiquewhite;
-}
-
-.fechData{
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 89%;
     margin-top: 2%;
-}
+    margin-left: 5%;
+    margin-right: 5%;
+    border: 1px solid black;
+    padding-top: 1%;
+    padding-bottom: .5%;
+    border-radius: 5px 5px 0 0;
+    background-color: #5c3333;
+  }
+  
+  .title, .total {
+    margin-right: 20%;
+    margin-left: 20%;
+    color: antiquewhite;
+  }
+  
+  .price {
+    color: antiquewhite;
+  }
+  
+  .fetchData {
+    display: flex;
+    justify-content: space-evenly; 
+    margin-top: 2%;
+    margin-left: 5%;
+    margin-right: 5%; 
+  }
+  
 
