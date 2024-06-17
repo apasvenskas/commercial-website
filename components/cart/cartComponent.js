@@ -9,8 +9,8 @@ const insertDecimal = (num) => {
 export default function CartComponent({ item }) {
   console.log("item in carComponent", item);
 
-    const fullPrice = item.Price * 100;
-    const price = item.discount ? insertDecimal(fullPrice - fullPrice * (item.discount / 100))
+    const fullPrice = item.price * 100;
+    const price = item.discount ? insertDecimal(fullPrice * (item.discount / 100))
     : insertDecimal(fullPrice); 
 
   return (
@@ -30,10 +30,11 @@ export default function CartComponent({ item }) {
           </Link>
         </div>
         <div className={styles.price}>
-          <p> ${item.price} </p>
+          <p> ${price} </p>
         </div>
         <div className={styles.total}>
-          <p> ${item.price} </p>
+          {/* <p> ${insertDecimal(fullPrice * (item.discount / 100))} </p> */}
+          <p> ${price} </p>
         </div>
       </div>
     </>

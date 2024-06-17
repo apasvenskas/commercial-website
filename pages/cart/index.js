@@ -2,9 +2,19 @@ import TheBar from "@/components/product/theBar";
 import styles from "./index.module.css";
 import { useProductContext } from "../../state/context/productContext";
 import CartComponent from "@/components/cart/cartComponent";
+import { useState, useEffect } from "react";
 
 export default function AddToCart() {
-  const { cart, addToCart } = useProductContext();
+  // const { cart, addToCart } = useProductContext();
+
+  const { cart: initialCart } = useProductContext();
+  const [cart, setCart] = useState([]);
+
+  // Sync cart state with context on client-side
+  useEffect(() => {
+    setCart(initialCart);
+  }, [initialCart]);
+
   console.log("product data Cart page", cart);
 
   return (
@@ -26,14 +36,12 @@ export default function AddToCart() {
           </div>
         </div>
         <div className={styles.fechData}>
-          {cart.length ? (
-            cart.map((item) => {
-              return (
-                <div key={item.id}>
-                  <CartComponent item={item} />
-                </div>
-              );
-            })
+          {cart && cart.length > 0 ? (
+            cart.map((item) => (
+              <div key={item.id}>
+                <CartComponent item={item} />
+              </div>
+            ))
           ) : (
             <div>
               <h2>The Cart is Empty</h2>
