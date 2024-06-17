@@ -1,13 +1,15 @@
 import Link from "next/link";
 import styles from "./cartComponent.module.css";
 import Image from "next/image";
+import { useProductContext } from "@/state/context/productContext";
 
 const insertDecimal = (num) => {
     return (num / 100).toFixed(2);
 };
 
 export default function CartComponent({ item }) {
-  console.log("item in carComponent", item);
+  
+    const {removeItem} = useProductContext();
 
     const fullPrice = item.price * 100;
     const price = item.discount ? insertDecimal(fullPrice * (item.discount / 100))
@@ -35,6 +37,14 @@ export default function CartComponent({ item }) {
         <div className={styles.total}>
           {/* <p> ${insertDecimal(fullPrice * (item.discount / 100))} </p> */}
           <p> ${price} </p>
+          <span className={styles.clearButton} onClick={() => removeItem(item.id)}>
+                <Image
+                    src="/delete.png"
+                    height={25}
+                    width={25}
+                    alt="deleteIcon"
+                />
+            </span>
         </div>
       </div>
     </>

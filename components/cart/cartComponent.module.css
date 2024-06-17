@@ -18,11 +18,30 @@
     text-decoration: underline;
 }
 
-.title , .total{
+.title{
     margin-right: 0%;
 }
 
-/* .price{
-    color: antiquewhite;
-} */
+.total{
+    margin-right: 0%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
+.emptyCart{
+    display: flex;
+    justify-content: center;
+}
+
+.clearButton{
+    margin-top: 5%;
+}
+
+.clearButton img {
+    transition: transform 0.3s ease;
+}
+
+.clearButton:hover img {
+    transform: scale(1.2);
+}
