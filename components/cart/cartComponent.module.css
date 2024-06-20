@@ -22,11 +22,16 @@
     margin-right: 0%;
 }
 
+.price{
+    display: flex;
+    align-items: center;
+}
+
 .total{
     margin-right: 0%;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
 }
 
 .emptyCart{
@@ -35,7 +40,7 @@
 }
 
 .clearButton{
-    margin-top: 5%;
+    margin-left: 50%;
 }
 
 .clearButton img {

@@ -44,7 +44,8 @@ export default function AddToCart() {
                 <CartComponent item={item} />
               </div>
             ))
-          ) : (
+          ) 
+          : (
             <div className={styles.emptyCart}>
               <h2>The Cart is Empty</h2>
             </div>

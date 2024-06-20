@@ -40,8 +40,8 @@ export default function CartComponent({ item }) {
           <span className={styles.clearButton} onClick={() => removeItem(item.id)}>
                 <Image
                     src="/delete.png"
-                    height={25}
-                    width={25}
+                    height={33}
+                    width={33}
                     alt="deleteIcon"
                 />
             </span>
