@@ -54,5 +54,55 @@
     margin-left: 5%;
     margin-right: 5%; 
   }
+
+  .emptyCart{
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .actions{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-left:  5%;
+    margin-right: 5%;
+    margin-bottom: 5%;
+    margin-top: 2%;
+  }
+
+  .total p {
+    color: black;
+  }
+
+  .homeLink{
+    margin: 3%;
+    padding: 2%;
+    width: 120px;
+    background-color: rgb(220, 215, 215);
+    color: rgb(0, 0, 0);
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 
+  }
+
+  .homeLink:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.3); 
+}
+
+.clearCart{
+  margin: 3%;
+  padding: 2%;
+  width: 120px;
+  background-color: rgb(255, 128, 0);
+  align-items: center;
+  color: aliceblue;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 
+}
+
+.clearCart:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.3); 
+}
   
 

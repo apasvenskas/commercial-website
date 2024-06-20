@@ -52,6 +52,9 @@ export const productReducer = (state, action) => {
         const tempCart = state.cart.filter(item => item.id !== action.payload)
         return { ...state, cart: tempCart }
       }
+      case "CLEAR_CART":{
+        return{ ...state, cart: [] };
+      }
 
     default:
       return state;
@@ -87,8 +90,13 @@ export const ProductProvider = ({ children }) => {
     localStorage.setItem("cart", JSON.stringify(state.cart))
   }, [state.cart])
 
+  // clear cart
+  const clearCart = id => {
+    dispatch({type: 'CLEAR_CART', payload: id})
+  }
+
   return (
-    <ProductContext.Provider value={{ ...state, addToCart, removeItem }}>
+    <ProductContext.Provider value={{ ...state, addToCart, removeItem, clearCart }}>
       {children}
     </ProductContext.Provider>
   );
