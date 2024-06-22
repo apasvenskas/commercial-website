@@ -1,0 +1,70 @@
+.section{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.cartWrapper{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.CardWrapper{
+    background-color: white;
+    padding: 10%;
+    border: 1px solid black;
+    min-width: 150%;
+    border-radius: 10px;
+}
+
+.subTotal{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 3%;
+}
+
+.shipping{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+    margin-bottom: 3%;
+}
+
+.total{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.h3{
+    color: rgb(16, 75, 61);
+}
+
+.checkout{
+    display: flex;
+    justify-content: center;
+    margin-top: 5%;
+}
+
+.btn{
+    max-width: 100%;
+    margin-left: 50%;
+}
+
+.button {
+    margin: 3%;
+    padding: 1%;
+    width: 120px;
+    background-color: rgb(220, 215, 215);
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 
+    padding: 5%;
+}
+
+.button:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.3); 
+}

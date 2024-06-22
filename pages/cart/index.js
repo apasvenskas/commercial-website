@@ -4,6 +4,7 @@ import { useProductContext } from "../../state/context/productContext";
 import CartComponent from "@/components/cart/cartComponent";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import CartTotal from "./cartTotal";
 
 export default function AddToCart() {
   // const { cart, addToCart } = useProductContext();
@@ -58,11 +59,9 @@ export default function AddToCart() {
             <Link href="/">Continue Shopping</Link>
           </button>
         </div>
-
         <div className={styles.total}>
-          <p>Total amount: $xxxx</p>
+          <CartTotal />
         </div>
-
         <div className={styles.btn}>
           <button className={styles.clearCart} onClick={() => clearCart()}>
             Clear <br/> the Cart
