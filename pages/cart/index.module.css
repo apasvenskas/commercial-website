@@ -67,8 +67,12 @@
     justify-content: center;
     margin-left:  5%;
     margin-right: 5%;
-    margin-bottom: 5%;
+    margin-bottom: 3%;
     margin-top: 2%;
+  }
+
+  .total{
+    margin-left: 17%;
   }
 
   .total p {
@@ -84,6 +88,7 @@
     align-items: center;
     border-radius: 5px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 
+    margin-left: 25%;
   }
 
   .homeLink:hover {

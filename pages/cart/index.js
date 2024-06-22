@@ -12,6 +12,7 @@ export default function AddToCart() {
   const { cart: initialCart } = useProductContext();
   const { clearCart } = useProductContext();
   const [cart, setCart] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   // Sync cart state with context on client-side
   useEffect(() => {
@@ -19,6 +20,29 @@ export default function AddToCart() {
   }, [initialCart]);
 
   console.log("product data Cart page", cart);
+
+  // subtiotal card shipping, subtotal, total
+  // probobly need to set up some logic for shipping once the amount is known
+  let shipping = 50;
+  const allItemsSubtotals = [];
+  !loading &&
+    cart.length &&
+    cart.map((item) => {
+      const subTotal = item.discount
+        ? item.price * item.numItems -
+          item.price * item.num * (item.discount / 100)
+        : item.price * item.numItems;
+        allItemsSubtotals.push(subTotal);
+    });
+
+    const initialAmount = 0;
+    const allSubtotals = allItemsSubtotals.reduce(
+      (previuosAmount, currentAmount) => previuosAmount + currentAmount,
+      initialAmount
+    );
+
+    const total = Math.round((allSubtotals + Number.EPSILON) * 100) / 100;
+    total > 0 ? (shipping = 5) : (shipping = 0);
 
   return (
     <>
@@ -45,8 +69,7 @@ export default function AddToCart() {
                 <CartComponent item={item} />
               </div>
             ))
-          ) 
-          : (
+          ) : (
             <div className={styles.emptyCart}>
               <h2>The Cart is Empty</h2>
             </div>
@@ -60,11 +83,11 @@ export default function AddToCart() {
           </button>
         </div>
         <div className={styles.total}>
-          <CartTotal />
+          <CartTotal total={total} shipping={shipping}/>
         </div>
         <div className={styles.btn}>
           <button className={styles.clearCart} onClick={() => clearCart()}>
-            Clear <br/> the Cart
+            Clear <br /> the Cart
           </button>
         </div>
       </div>

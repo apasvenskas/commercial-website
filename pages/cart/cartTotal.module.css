@@ -16,6 +16,7 @@
     border: 1px solid black;
     min-width: 150%;
     border-radius: 10px;
+    /* box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);  */
 }
 
 .subTotal{
@@ -31,6 +32,7 @@
     justify-content: space-between;
     border-bottom: 1px solid black;
     margin-bottom: 3%;
+    padding-bottom: 2%;
 }
 
 .total{
@@ -58,11 +60,13 @@
     margin: 3%;
     padding: 1%;
     width: 120px;
-    background-color: rgb(220, 215, 215);
+    background-color: rgb(43, 98, 29);
     align-items: center;
     border-radius: 5px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 
     padding: 5%;
+    color:beige;
+    min-width: 100%;
 }
 
 .button:hover {

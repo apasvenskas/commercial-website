@@ -1,6 +1,13 @@
 import styles from "./cartTotal.module.css";
 
-export default function CartTotal() {
+function insertDecimal(num){
+  return (num / 100).toFixed(2);
+}
+
+export default function CartTotal({ total, shipping }) {
+
+  const finalPrice = insertDecimal(total * 100 + shipping * 100);
+
   return (
     <section className={styles.section}>
       <div className={styles.cartWrapper}>
@@ -8,15 +15,15 @@ export default function CartTotal() {
           <div className={styles.spacing}>
             <div className={styles.subTotal}>
               <p>Subtotal:</p>
-              <p>$10000</p>
+              <p>${total}</p>
             </div>
             <div className={styles.shipping}>
               <p>Shipping Fee:</p>
-              <p>$100</p>
+              <p>${shipping}</p>
             </div>
             <div className={styles.total}>
               <h3 className={styles.h3}>Order Total: </h3>
-              <h3 className={styles.h3}>$1100</h3>
+              <h3 className={styles.h3}>${finalPrice}</h3>
             </div>
           </div>
         </div>
