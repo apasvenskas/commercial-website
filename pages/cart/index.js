@@ -2,17 +2,13 @@ import TheBar from "@/components/product/theBar";
 import styles from "./index.module.css";
 import { useProductContext } from "../../state/context/productContext";
 import CartComponent from "@/components/cart/cartComponent";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
-import CartTotal from "./cartTotal";
+import CartTotal from "../../components/cart/cartTotal";
 
 export default function AddToCart() {
-  // const { cart, addToCart } = useProductContext();
-
-  const { cart: initialCart } = useProductContext();
-  const { clearCart } = useProductContext();
+  const { cart: initialCart, clearCart } = useProductContext();
   const [cart, setCart] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   // Sync cart state with context on client-side
   useEffect(() => {
@@ -21,28 +17,20 @@ export default function AddToCart() {
 
   console.log("product data Cart page", cart);
 
-  // subtiotal card shipping, subtotal, total
-  // probobly need to set up some logic for shipping once the amount is known
-  let shipping = 50;
-  const allItemsSubtotals = [];
-  !loading &&
-    cart.length &&
-    cart.map((item) => {
-      const subTotal = item.discount
-        ? item.price * item.numItems -
-          item.price * item.num * (item.discount / 100)
-        : item.price * item.numItems;
-        allItemsSubtotals.push(subTotal);
-    });
-
-    const initialAmount = 0;
-    const allSubtotals = allItemsSubtotals.reduce(
-      (previuosAmount, currentAmount) => previuosAmount + currentAmount,
-      initialAmount
-    );
+  const { total, shipping } = useMemo(() => {
+    let shipping = 50;
+    const allSubtotals = cart.reduce((total, item) => {
+      const price = parseFloat(item.price);
+      const discountedPrice = item.discount ? price * (1 - item.discount / 100) : price;
+      return total + discountedPrice;
+    }, 0);
 
     const total = Math.round((allSubtotals + Number.EPSILON) * 100) / 100;
-    total > 0 ? (shipping = 5) : (shipping = 0);
+    shipping = total > 0 ? 50 : 0;
+
+    console.log('total', total);
+    return { total, shipping };
+  }, [cart]);
 
   return (
     <>
@@ -86,7 +74,7 @@ export default function AddToCart() {
           <CartTotal total={total} shipping={shipping}/>
         </div>
         <div className={styles.btn}>
-          <button className={styles.clearCart} onClick={() => clearCart()}>
+          <button className={styles.clearCart} onClick={clearCart}>
             Clear <br /> the Cart
           </button>
         </div>
