@@ -58,7 +58,12 @@ export default function Navigation() {
         </ul>
         <ul className={styles.link}>
           <li>
-            <Link href="/">Login</Link>
+            <Link href="/api/auth/login">Login</Link>
+          </li>
+        </ul>
+        <ul className={styles.link}>
+          <li>
+            <Link href="/api/auth/logout">Logout</Link>
           </li>
         </ul>
         <ul className={styles.link}>
