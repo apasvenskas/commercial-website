@@ -15,7 +15,7 @@ export default function AddToCart() {
     setCart(initialCart);
   }, [initialCart]);
 
-  console.log("product data Cart page", cart);
+  // console.log("product data Cart page", cart);
 
   const { total, shipping } = useMemo(() => {
     let shipping = 50;
@@ -28,7 +28,7 @@ export default function AddToCart() {
     const total = Math.round((allSubtotals + Number.EPSILON) * 100) / 100;
     shipping = total > 0 ? 50 : 0;
 
-    console.log('total', total);
+    // console.log('total', total);
     return { total, shipping };
   }, [cart]);
 
