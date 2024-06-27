@@ -3,10 +3,13 @@ import Image from "next/image";
 import styles from "./navigation.module.css";
 import { useEffect, useState } from "react";
 import { useProductContext } from "@/state/context/productContext";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 export default function Navigation() {
+  const {user} = useUser();
+  console.log("user", user)
+  
   // logic for cart items showing up in the cart
-
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -58,12 +61,9 @@ export default function Navigation() {
         </ul>
         <ul className={styles.link}>
           <li>
-            <Link href="/api/auth/login">Login</Link>
-          </li>
-        </ul>
-        <ul className={styles.link}>
-          <li>
-            <Link href="/api/auth/logout">Logout</Link>
+           {user ? (<Link href="/api/auth/logout">{`Hello ${user.nickname}`}</Link>) : (
+              <Link href="/user/login">Login</Link>
+           )}
           </li>
         </ul>
         <ul className={styles.link}>
