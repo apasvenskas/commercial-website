@@ -29,7 +29,7 @@ export default function Navigation() {
     initialAmount
   );
 
-  console.log("cart items nav", itemsInCart);
+  // console.log("cart items nav", itemsInCart);
 
   return (
     <div className={styles.topHeader}>
