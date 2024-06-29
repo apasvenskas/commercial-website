@@ -61,7 +61,7 @@ export default function Navigation() {
         </ul>
         <ul className={styles.link}>
           <li>
-           {user ? (<Link href="/api/auth/logout">{`Hello ${user.nickname}`}</Link>) : (
+           {user ? (<Link href="/user/logout">Logout</Link>) : (
               <Link href="/user/login">Login</Link>
            )}
           </li>

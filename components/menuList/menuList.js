@@ -60,6 +60,9 @@ export default function MenuList() {
     return <div>Loading...</div>;
   }
 
+  // Deduplicate types
+  const uniqueTypes = [...new Set(data.map(item => item.type))];
+
   return (
     <div className={styles.leftMenu}>
       <div className={styles.menu}>
@@ -70,19 +73,20 @@ export default function MenuList() {
       <div className={styles.menuHeader}>
         <h3>Categories</h3>
         <div className={styles.types}>
-        {data.map((item, idx) => (
-          <ListItem
-            key={idx}
-            item={item}
-            onMouseOver={() => handleMouseOver(item.type)}
-            onMouseLeave={handleMouseLeave}
-            titles={hoveredType === item.type ? titles : []}
-          />
-        ))}
+          {uniqueTypes.map((type, idx) => (
+            <ListItem
+              key={idx}
+              item={{ type }}
+              onMouseOver={() => handleMouseOver(type)}
+              onMouseLeave={handleMouseLeave}
+              titles={hoveredType === type ? titles : []}
+            />
+          ))}
         </div>
       </div>
     </div>
   );
 }
+
 
 
