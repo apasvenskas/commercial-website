@@ -49,11 +49,11 @@ export default function Navigation() {
             <Link href={`/products/artist`}>Artist</Link>
           </li>
         </ul>
-        <ul className={styles.link}>
+        {/* <ul className={styles.link}>
           <li>
             <Link href="/">New Art</Link>
           </li>
-        </ul>
+        </ul> */}
         <ul className={styles.link}>
           <li>
             <Link href="/">All Art</Link>

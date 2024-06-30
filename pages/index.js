@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { GraphQLClient, gql } from "graphql-request";
+import { useRouter } from "next/router";
 import TheBar from "@/components/product/theBar";
 import MenuList from "@/components/menuList/menuList";
 import styles from "./index.module.css";
@@ -12,22 +13,31 @@ const hygraph = new GraphQLClient(process.env.HYGRAPH_ENDPOINT, {
   },
 });
 
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
+
 export default function Home({ data }) {
-  console.log("data is", data);
-  const theBarTitle = "New Paintings";
+  const router = useRouter();
+  const { type } = router.query;
+  console.log('index type', type)
+  const [theBarTitle, setTheBarTitle] = useState("New Paintings");
+
+  useEffect(() => {
+    if (type) {
+      setTheBarTitle(capitalizeFirstLetter(type));
+    }
+  }, [type]);
+
   const productsArray = Object.values(data);
-  console.log("products array", productsArray);
 
   let myItems = [];
 
-  productsArray.map((item) => {
-    item.map((item) => {
+  productsArray.forEach((item) => {
+    item.forEach((item) => {
       myItems.push(item);
-      return;
     });
   });
-
-  console.log("My items", myItems);
 
   return (
     <div className={styles.body}>
@@ -39,24 +49,20 @@ export default function Home({ data }) {
           <TheBar title={theBarTitle} className={styles.theBar} />
         </div>
         <div className={styles.card}>
-          {myItems.map((item) => {
-            return (
-              <Link
-                href={`/products/${item.slug}`}
-                key={item.id}
-                legacyBehavior
-              >
-                <a>
-                  <ProductCard item={item}/>
-                </a>
-              </Link>
-            );
-          })}
+          {myItems.map((item) => (
+            <Link href={`/products/${item.slug}`} key={item.id} legacyBehavior>
+              <a>
+                <ProductCard item={item} />
+              </a>
+            </Link>
+          ))}
         </div>
       </div>
     </div>
   );
 }
+
+
 
 const MyQuery = gql`
   {
