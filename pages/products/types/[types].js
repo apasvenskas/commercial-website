@@ -11,61 +11,107 @@ const hygraph = new GraphQLClient(process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT, {
   },
 });
 
-export default function TypesOfArt({ data }) {
-  const typeKey = Object.keys(data).toString();
-  const topBarType = data.paintings[0]?.type || "Default Type"; // Adjust this based on your data structure
+export default function TypesOfArt({ data, error, type }) {
+  console.log('Received data:', data);
+  console.log('Received error:', error);
+  console.log('Received type:', type);
 
-  if (data) {
-    const productsArray = data.paintings;
-    return (
-      <section className={styles.body}>
-        <div className={styles.menuDiv}>
-          <MenuList />
-        </div>
-        <div className={styles.mainSection}>
-          <div className={styles.theBarContainer}>
-            <TheBar title={topBarType} className={styles.theBar} />
-          </div>
-          <div className={styles.card}>
-            {productsArray.map((item) => (
-              <Link href={`/products/${item.slug}`} key={item.id} legacyBehavior>
-                <a>
-                  <ProductCard item={item} />
-                </a>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-    );
+  if (error) {
+    return <div>Error: {error}</div>;
   }
-  return null;
+
+  if (!type) {
+    return <div>Please specify a type of art in the URL.</div>;
+  }
+
+  if (!data || !data.paintings || data.paintings.length === 0) {
+    return <div>No art pieces found for type: {type}</div>;
+  }
+
+  const productsArray = data.paintings;
+  const topBarType = type || "All Art";
+
+  return (
+    <section className={styles.body}>
+      <div className={styles.menuDiv}>
+        <MenuList />
+      </div>
+      <div className={styles.mainSection}>
+        <div className={styles.theBarContainer}>
+          <TheBar title={topBarType} className={styles.theBar} />
+        </div>
+        <div className={styles.card}>
+          {productsArray.map((item) => (
+            <Link href={`/products/${item.slug}`} key={item.id}>
+              <ProductCard item={item} />
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }
 
 export async function getServerSideProps(context) {
-  const query = gql`
-    {
-      paintings {
-        id
-        images {
-          url(transformation: {})
-        }
-        price
-        promotion
-        publishedAt
-        title
-        subtitle
-        stock
-        slug
-        type
-      }
-    }
-  `;
-  const data = await hygraph.request(query);
+  try {
+    console.log('Environment variables:');
+    console.log('NEXT_PUBLIC_HYGRAPH_ENDPOINT:', process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT);
+    console.log('NEXT_PUBLIC_HYGRAPH_TOKEN:', process.env.NEXT_PUBLIC_HYGRAPH_TOKEN ? 'Set' : 'Not Set');
 
-  return {
-    props: {
-      data: data,
-    },
-  };
+    const { types } = context.params;
+    console.log('Received types parameter:', types);
+
+    if (!types) {
+      return {
+        props: {
+          data: null,
+          error: null,
+          type: null,
+        },
+      };
+    }
+
+    const query = gql`
+      query GetProductsByType($type: String!) {
+        paintings(where: { type: $type }) {
+          id
+          images {
+            url
+          }
+          price
+          promotion
+          publishedAt
+          title
+          subtitle
+          stock
+          slug
+          type
+        }
+      }
+    `;
+
+    const variables = { type: types };
+    console.log('GraphQL Query:', query);
+    console.log('Variables:', variables);
+
+    const data = await hygraph.request(query, variables);
+    console.log('Received data from Hygraph:', JSON.stringify(data, null, 2));
+
+    return {
+      props: {
+        data: data,
+        error: null,
+        type: types,
+      },
+    };
+  } catch (error) {
+    console.error('Detailed error:', error);
+    return {
+      props: {
+        data: null,
+        error: `Error details: ${error.message}\nStack trace: ${error.stack}`,
+        type: context.params.types || null,
+      },
+    };
+  }
 }
