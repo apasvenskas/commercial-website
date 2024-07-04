@@ -11,10 +11,11 @@ const hygraph = new GraphQLClient(process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT, {
   },
 });
 
-export default function TypesOfArt({ data, error, type }) {
+export default function TypesOfArt({ data, error, type, allTypes }) {
   console.log('Received data:', data);
   console.log('Received error:', error);
   console.log('Received type:', type);
+  console.log('All available types:', allTypes);
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -25,7 +26,12 @@ export default function TypesOfArt({ data, error, type }) {
   }
 
   if (!data || !data.paintings || data.paintings.length === 0) {
-    return <div>No art pieces found for type: {type}</div>;
+    return (
+      <div>
+        <p>No art pieces found for type: {type}</p>
+        <p>Available types: {allTypes.join(', ')}</p>
+      </div>
+    );
   }
 
   const productsArray = data.paintings;
@@ -54,12 +60,22 @@ export default function TypesOfArt({ data, error, type }) {
 
 export async function getServerSideProps(context) {
   try {
-    console.log('Environment variables:');
-    console.log('NEXT_PUBLIC_HYGRAPH_ENDPOINT:', process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT);
-    console.log('NEXT_PUBLIC_HYGRAPH_TOKEN:', process.env.NEXT_PUBLIC_HYGRAPH_TOKEN ? 'Set' : 'Not Set');
-
     const { types } = context.params;
     console.log('Received types parameter:', types);
+
+    // Query to get all paintings and their types
+    const allPaintingsQuery = gql`
+      query {
+        paintings {
+          id
+          type
+        }
+      }
+    `;
+
+    const allPaintingsData = await hygraph.request(allPaintingsQuery);
+    const allTypes = [...new Set(allPaintingsData.paintings.map(painting => painting.type))];
+    console.log('All available types:', allTypes);
 
     if (!types) {
       return {
@@ -67,9 +83,13 @@ export async function getServerSideProps(context) {
           data: null,
           error: null,
           type: null,
+          allTypes,
         },
       };
     }
+
+    // Adjust the type to match the exact value (case-sensitive)
+    const adjustedType = allTypes.find(t => t.toLowerCase() === types.toLowerCase());
 
     const query = gql`
       query GetProductsByType($type: String!) {
@@ -90,7 +110,7 @@ export async function getServerSideProps(context) {
       }
     `;
 
-    const variables = { type: types };
+    const variables = { type: adjustedType || types };
     console.log('GraphQL Query:', query);
     console.log('Variables:', variables);
 
@@ -102,6 +122,7 @@ export async function getServerSideProps(context) {
         data: data,
         error: null,
         type: types,
+        allTypes,
       },
     };
   } catch (error) {
@@ -111,6 +132,7 @@ export async function getServerSideProps(context) {
         data: null,
         error: `Error details: ${error.message}\nStack trace: ${error.stack}`,
         type: context.params.types || null,
+        allTypes: [],
       },
     };
   }
