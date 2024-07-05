@@ -10,6 +10,9 @@ import { useProductContext } from "../../state/context/productContext";
 import { useState } from "react";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const hygraph = new GraphQLClient(process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT, {
   headers: {
@@ -57,6 +60,23 @@ export default function SlugPage({ product }) {
   const openLightbox = (index) => {
     setPhotoIndex(index);
     setIsOpen(true);
+  };
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
@@ -137,23 +157,24 @@ export default function SlugPage({ product }) {
             </div>
           </div>
           <div className={styles.imageWrapper}>
-            <div className={styles.images}>
+            <Slider {...settings}>
               {mainImagesSrc.length > 0 ? (
                 mainImagesSrc.map((image, index) => (
-                  <Image
-                    key={index}
-                    src={image.url}
-                    height={200}
-                    width={200}
-                    alt={`Painting`}
-                    className={styles.img}
-                    onClick={() => openLightbox(index)}
-                  />
+                  <div key={index} className={styles.imageContainer}>
+                    <Image
+                      src={image.url}
+                      height={200}
+                      width={200}
+                      alt={`Painting`}
+                      className={styles.img}
+                      onClick={() => openLightbox(index)}
+                    />
+                  </div>
                 ))
               ) : (
                 <p>No images available</p>
               )}
-            </div>
+            </Slider>
           </div>
         </div>
       </div>
