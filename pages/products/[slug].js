@@ -38,6 +38,7 @@ export default function SlugPage({ product }) {
     price,
     tempPrice,
     discount,
+    discountPercent,
     discountPrice,
     imgSrc,
     mainImgSrc,
@@ -84,7 +85,7 @@ export default function SlugPage({ product }) {
                 {isPromoProd ? (
                   <div>
                     <p className="fadedPrice">
-                      Price: ${price} <span className={styles.off}>- {discount} % OFF</span>
+                      Price: ${price} <span className={styles.off}>- {discountPercent} % OFF</span>
                     </p>
                     <p className="fadedPrice">
                       Promo Price: <span className={styles.discountPrice}> ${discountPrice}</span>
