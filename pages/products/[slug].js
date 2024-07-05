@@ -7,6 +7,9 @@ import { RichText } from "@graphcms/rich-text-react-renderer";
 import Link from "next/link";
 import Image from "next/image";
 import { useProductContext } from "../../state/context/productContext";
+import { useState } from "react";
+import Lightbox from "react-image-lightbox";
+import "react-image-lightbox/style.css";
 
 const hygraph = new GraphQLClient(process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT, {
   headers: {
@@ -19,10 +22,7 @@ function capitalizeFirstLetter(string) {
 }
 
 export default function SlugPage({ product }) {
-
-  // const { testID, getProducts } = useProductContext();
   const { addToCart } = useProductContext();
-  // console.log("ID from productCard", testID)
 
   const productArray = Object.values(product);
   let item = {};
@@ -51,7 +51,13 @@ export default function SlugPage({ product }) {
     numItems
   } = useGetPaintingDetails(item);
 
-  // console.log("slug mainImagesSrc", mainImagesSrc);
+  const [isOpen, setIsOpen] = useState(false);
+  const [photoIndex, setPhotoIndex] = useState(0);
+
+  const openLightbox = (index) => {
+    setPhotoIndex(index);
+    setIsOpen(true);
+  };
 
   return (
     <section className={styles.body}>
@@ -66,7 +72,7 @@ export default function SlugPage({ product }) {
           <div className={styles.productDetails}>
             <div className={styles.product}>
               <div className={styles.subtitle}>
-              <h3>{capitalizeFirstLetter(subtitle)}</h3>
+                <h3>{capitalizeFirstLetter(subtitle)}</h3>
               </div>
               <div className={styles.descriptionSection}>
                 <div className={styles.descriptionTitle}>
@@ -75,7 +81,9 @@ export default function SlugPage({ product }) {
                 <div className={styles.description}>
                   <RichText content={mainContent} />
                   <div className={styles.link}>
-                  <Link className={styles.artistLink} href="/products/artist">More from the same Artist</Link>
+                    <Link className={styles.artistLink} href="/products/artist">
+                      More from the same Artist
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -110,7 +118,12 @@ export default function SlugPage({ product }) {
             </div>
             <div className={styles.buttonWrap}>
               <Link href="/cart">
-                <button className={styles.button} onClick={() => addToCart(id, title, stock, price, discount, mainImgSrc, numItems)}>
+                <button
+                  className={styles.button}
+                  onClick={() =>
+                    addToCart(id, title, stock, price, discount, mainImgSrc, numItems)
+                  }
+                >
                   {stock > 0 ? "Add To Cart" : "Out of Stock"}
                   <Image
                     src="/cart.png"
@@ -134,6 +147,7 @@ export default function SlugPage({ product }) {
                     width={200}
                     alt={`Painting`}
                     className={styles.img}
+                    onClick={() => openLightbox(index)}
                   />
                 ))
               ) : (
@@ -143,6 +157,22 @@ export default function SlugPage({ product }) {
           </div>
         </div>
       </div>
+      {isOpen && (
+        <Lightbox
+          mainSrc={mainImagesSrc[photoIndex].url}
+          nextSrc={mainImagesSrc[(photoIndex + 1) % mainImagesSrc.length].url}
+          prevSrc={
+            mainImagesSrc[(photoIndex + mainImagesSrc.length - 1) % mainImagesSrc.length].url
+          }
+          onCloseRequest={() => setIsOpen(false)}
+          onMovePrevRequest={() =>
+            setPhotoIndex((photoIndex + mainImagesSrc.length - 1) % mainImagesSrc.length)
+          }
+          onMoveNextRequest={() =>
+            setPhotoIndex((photoIndex + 1) % mainImagesSrc.length)
+          }
+        />
+      )}
     </section>
   );
 }
@@ -184,3 +214,4 @@ export async function getServerSideProps(context) {
     },
   };
 }
+
