@@ -153,6 +153,7 @@ export async function getServerSideProps(context) {
     query ($currentSlug: String!) {
       paintings(where: { slug: $currentSlug }) {
         artist
+        discountPercent
         id
         price
         promotion

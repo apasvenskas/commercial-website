@@ -68,6 +68,7 @@ const MyQuery = gql`
   {
     paintings(where: { OR: { newProduct: true } }) {
       artist
+      discountPercent
       id
       price
       promotion

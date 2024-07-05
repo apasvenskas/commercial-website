@@ -95,6 +95,7 @@ export async function getServerSideProps(context) {
       query GetProductsByType($type: String!) {
         paintings(where: { type: $type }) {
           id
+          discountPercent
           images {
             url
           }

@@ -5,16 +5,17 @@ import { useState } from "react";
 import { useProductContext } from "../../state/context/productContext";
 
 export default function ProductCard({ item }) {
-
   const { banner, setBanner } = useState(false);
   const { addToCart } = useProductContext();
+
+  console.log('Item in ProductCard:', item);
 
   const {
     isNewProduct,
     isPromoProd,
     price,
     tempPrice,
-    discount,
+    discountPercent,
     discountPrice,
     imgSrc,
     mainImgSrc,
@@ -22,29 +23,29 @@ export default function ProductCard({ item }) {
     title,
   } = useGetPaintingDetails(item);
 
-  useGetPaintingDetails(item);
+  console.log('Discount Percent in ProductCard:', discountPercent);
+  console.log('Calculated Discount Price:', discountPrice);
 
   const formattedImgSrc = mainImgSrc.startsWith("http")
     ? mainImgSrc
     : `/${mainImgSrc}`;
-  // console.log("image", formattedImgSrc);
+    
   return (
-    <div className={styles.ardContainer}>
+    <div className={styles.cardContainer}>
       <div className={styles.card}>
         <Image src={formattedImgSrc} alt={title} width={200} height={200} />
         <h2>{title}</h2>
-        <p>Price: ${price}</p>
-        {isPromoProd && <p>Promo Price: ${discountPrice}</p>}
+        {isPromoProd ? (
+          <p>Promo Price: ${discountPrice}</p>
+        ) : (
+          <p>Price: ${price}</p>
+        )}
         {isNewProduct && <span>New Arrival</span>}
-        {/* Other UI elements */}
         <div className={styles.button}>
-        <button onClick={() => addToCart(id, title, stock, price, discount, mainImgSrc)}>
-          {/* {stock > 0 ? 'Add to Cart' : 'Out of Stock'} */}
-          Add to cart
-        </button>
+          <div>Click for more details</div>
+        </div>
       </div>
-      </div>
-     
     </div>
   );
 }
+
