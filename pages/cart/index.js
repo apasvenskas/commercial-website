@@ -21,7 +21,7 @@ export default function AddToCart() {
     let shipping = 50;
     const allSubtotals = cart.reduce((total, item) => {
       const price = parseFloat(item.price);
-      const discountedPrice = item.discount ? price * (1 - item.discount / 100) : price;
+      const discountedPrice = item.discountPercent ? price * (1 - item.discountPercent / 100) : price;
       return total + discountedPrice;
     }, 0);
 
@@ -35,7 +35,7 @@ export default function AddToCart() {
   return (
     <>
       <div className={styles.theBarContainer}>
-        <TheBar className={styles.theBar} title="Cart Page" />
+        <TheBar className={styles.theBar} title="Cart Page"  titleClassName={styles.cartPageTitle}/>
       </div>
       <div className={styles.header}>
         <h2>Paintings In The Cart</h2>
@@ -82,3 +82,4 @@ export default function AddToCart() {
     </>
   );
 }
+

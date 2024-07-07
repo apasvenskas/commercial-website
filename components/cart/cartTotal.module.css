@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    margin-right: 20%;
+    /* margin-right: 20%; */
 }
 
 .cartWrapper{
