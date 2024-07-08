@@ -4,16 +4,18 @@ import Image from "next/image";
 import { useProductContext } from "@/state/context/productContext";
 
 const insertDecimal = (num) => {
-    return (num / 100).toFixed(2);
+  return (num / 100).toFixed(2);
 };
 
 export default function CartComponent({ item }) {
+  const { removeItem } = useProductContext();
   
-    const {removeItem} = useProductContext();
+  // console.log('discountPercent', discountPercent )
+  console.log('item cart index', item)
 
-    const fullPrice = item.price * 100;
-    const price = item.discount ? insertDecimal(fullPrice * (item.discount / 100))
-    : insertDecimal(fullPrice); 
+  const fullPrice = item.price * 100;
+  const discountedPrice = item.discountPercent ? fullPrice * (1 - item.discountPercent / 100) : fullPrice;
+  const price = insertDecimal(discountedPrice);
 
   return (
     <>
@@ -35,18 +37,18 @@ export default function CartComponent({ item }) {
           <p> ${price} </p>
         </div>
         <div className={styles.total}>
-          {/* <p> ${insertDecimal(fullPrice * (item.discount / 100))} </p> */}
           <p> ${price} </p>
           <span className={styles.clearButton} onClick={() => removeItem(item.id)}>
-                <Image
-                    src="/delete.png"
-                    height={33}
-                    width={33}
-                    alt="deleteIcon"
-                />
-            </span>
+            <Image
+              src="/delete.png"
+              height={33}
+              width={33}
+              alt="deleteIcon"
+            />
+          </span>
         </div>
       </div>
     </>
   );
 }
+

@@ -15,27 +15,37 @@ export default function AddToCart() {
     setCart(initialCart);
   }, [initialCart]);
 
-  // console.log("product data Cart page", cart);
+  // Debugging: log cart items to check their properties
+  useEffect(() => {
+    console.log("Cart items:", cart);
+  }, [cart]);
 
   const { total, shipping } = useMemo(() => {
     let shipping = 50;
     const allSubtotals = cart.reduce((total, item) => {
       const price = parseFloat(item.price);
-      const discountedPrice = item.discountPercent ? price * (1 - item.discountPercent / 100) : price;
+      const discountPercent = item.discountPercent || 0; // Ensure discountPercent has a default value if undefined
+
+      // Debugging: log each item's price and discountPercent
+      console.log(`Item price: ${price}, Discount Percent: ${discountPercent}`);
+
+      const discountedPrice = price * (1 - discountPercent / 100);
       return total + discountedPrice;
     }, 0);
 
     const total = Math.round((allSubtotals + Number.EPSILON) * 100) / 100;
     shipping = total > 0 ? 50 : 0;
 
-    // console.log('total', total);
+    // Debugging: log total and shipping
+    console.log('Total:', total, 'Shipping:', shipping);
+
     return { total, shipping };
   }, [cart]);
 
   return (
     <>
       <div className={styles.theBarContainer}>
-        <TheBar className={styles.theBar} title="Cart Page"  titleClassName={styles.cartPageTitle}/>
+        <TheBar className={styles.theBar} title="Cart Page" titleClassName={styles.cartPageTitle} />
       </div>
       <div className={styles.header}>
         <h2>Paintings In The Cart</h2>
@@ -71,7 +81,7 @@ export default function AddToCart() {
           </button>
         </div>
         <div className={styles.total}>
-          <CartTotal total={total} shipping={shipping}/>
+          <CartTotal total={total} shipping={shipping} />
         </div>
         <div className={styles.btn}>
           <button className={styles.clearCart} onClick={clearCart}>
@@ -82,4 +92,5 @@ export default function AddToCart() {
     </>
   );
 }
+
 
