@@ -137,16 +137,11 @@ export default function SlugPage({ product }) {
               </div>
             </div>
             <div className={styles.buttonWrap}>
-              <Link 
-                href={{
-                pathname: "/cart",
-                query: { discountPercent }
-              }}
-              >
+              <Link href="/cart">
                 <button
                   className={styles.button}
                   onClick={() =>
-                    addToCart(id, title, stock, discountPercent, price, discount, mainImgSrc, numItems)
+                    addToCart(id, title, stock, price, discount, mainImgSrc, numItems)
                   }
                 >
                   {stock > 0 ? "Add To Cart" : "Out of Stock"}
@@ -240,4 +235,3 @@ export async function getServerSideProps(context) {
     },
   };
 }
-

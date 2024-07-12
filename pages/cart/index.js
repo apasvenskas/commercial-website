@@ -2,7 +2,7 @@ import TheBar from "@/components/product/theBar";
 import styles from "./index.module.css";
 import { useProductContext } from "../../state/context/productContext";
 import CartComponent from "@/components/cart/cartComponent";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import CartTotal from "../../components/cart/cartTotal";
 
@@ -10,34 +10,32 @@ export default function AddToCart() {
   const { cart: initialCart, clearCart } = useProductContext();
   const [cart, setCart] = useState([]);
 
+  // Sync cart state with context on client-side
   useEffect(() => {
     setCart(initialCart);
   }, [initialCart]);
 
-  useEffect(() => {
-    console.log("Cart items:", cart);
+  // console.log("product data Cart page", cart);
+
+  const { total, shipping } = useMemo(() => {
+    let shipping = 50;
+    const allSubtotals = cart.reduce((total, item) => {
+      const price = parseFloat(item.price);
+      const discountedPrice = item.discount ? price * (1 - item.discount / 100) : price;
+      return total + discountedPrice;
+    }, 0);
+
+    const total = Math.round((allSubtotals + Number.EPSILON) * 100) / 100;
+    shipping = total > 0 ? 50 : 0;
+
+    // console.log('total', total);
+    return { total, shipping };
   }, [cart]);
-
-  const total = cart.reduce((acc, item) => {
-    const price = parseFloat(item.price);
-    const discountPercent = parseFloat(item.discountPercent) || 0;
-    const sanitizedDiscountPercent = Math.min(Math.max(discountPercent, 0), 100);
-
-    console.log(`Item price: ${price}, Discount Percent: ${sanitizedDiscountPercent}`);
-
-    const discountedPrice = price * (1 - sanitizedDiscountPercent / 100);
-    return acc + discountedPrice;
-  }, 0);
-
-  const roundedTotal = Math.round((total + Number.EPSILON) * 100) / 100;
-  const shipping = roundedTotal > 0 ? 50 : 0;
-
-  console.log('Total:', roundedTotal, 'Shipping:', shipping);
 
   return (
     <>
       <div className={styles.theBarContainer}>
-        <TheBar className={styles.theBar} title="Cart Page" titleClassName={styles.cartPageTitle} />
+        <TheBar className={styles.theBar} title="Cart Page" />
       </div>
       <div className={styles.header}>
         <h2>Paintings In The Cart</h2>
@@ -73,7 +71,7 @@ export default function AddToCart() {
           </button>
         </div>
         <div className={styles.total}>
-          <CartTotal total={roundedTotal} shipping={shipping} />
+          <CartTotal total={total} shipping={shipping}/>
         </div>
         <div className={styles.btn}>
           <button className={styles.clearCart} onClick={clearCart}>

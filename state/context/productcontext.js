@@ -5,6 +5,7 @@ export const ProductContext = createContext();
 const getLocalStorage = () => {
   if(typeof window !== 'undefined'){
     let cart = localStorage.getItem('cart')
+
     if(cart){
       return JSON.parse(localStorage.getItem('cart'));
     } else {
@@ -20,12 +21,11 @@ const initialState = {
 export const productReducer = (state, action) => {
   switch (action.type) {
     case "ADD_TO_CART":
-      console.log("ADD_TO_CART action payload:", action.payload);
-      const { id, title, stock, price, discountPercent, mainImgSrc, numItems } = action.payload;
+      const { id, title, stock, price, discount, mainImgSrc, numItems } =
+        action.payload;
 
       const findItem = state.cart.find((item) => item.id === id);
       if (findItem) {
-        console.log("Updating existing item in cart:", findItem);
         const tempCart = state.cart.map((cartItem) => {
           if (cartItem.id === id) {
             let moreNumItems = findItem.numItems + 1;
@@ -39,25 +39,22 @@ export const productReducer = (state, action) => {
         });
         return { ...state, cart: tempCart };
       } else {
-        console.log("Adding new item to cart:", { id, title, stock, price, discountPercent, mainImgSrc, numItems });
         return {
           ...state,
           cart: [
             ...state.cart,
-            { id, title, stock, price, discountPercent, mainImgSrc, numItems }
+            { id, title, stock, price, discount, mainImgSrc, numItems }
           ],
         };
       }
 
-    case 'REMOVE_CART_ITEM': {
-      console.log("Removing item from cart:", action.payload);
-      const tempCart = state.cart.filter(item => item.id !== action.payload)
-      return { ...state, cart: tempCart }
-    }
-    case "CLEAR_CART":{
-      console.log("Clearing cart");
-      return{ ...state, cart: [] };
-    }
+      case 'REMOVE_CART_ITEM': {
+        const tempCart = state.cart.filter(item => item.id !== action.payload)
+        return { ...state, cart: tempCart }
+      }
+      case "CLEAR_CART":{
+        return{ ...state, cart: [] };
+      }
 
     default:
       return state;
@@ -72,26 +69,28 @@ export const ProductProvider = ({ children }) => {
     title,
     stock,
     price,
-    discountPercent,
+    discount,
     mainImgSrc,
     numItems
   ) => {
-    // console.log("addToCart called with:", { id, title, stock, price, discountPercent, mainImgSrc, numItems });
     dispatch({
       type: "ADD_TO_CART",
-      payload: { id, title, stock, price, discountPercent, mainImgSrc, numItems },
+      payload: { id, title, stock, price, discount, mainImgSrc, numItems },
     });
   };
+
+  // delete item form cart
 
   const removeItem = (id) => {
     dispatch({type: 'REMOVE_CART_ITEM', payload: id })
   }
 
+  // storage for local data
   useEffect(() => {
-    console.log("Updating localStorage with cart:", state.cart);
     localStorage.setItem("cart", JSON.stringify(state.cart))
   }, [state.cart])
 
+  // clear cart
   const clearCart = id => {
     dispatch({type: 'CLEAR_CART', payload: id})
   }
