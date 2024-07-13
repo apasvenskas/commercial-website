@@ -15,20 +15,18 @@ export default function AddToCart() {
     setCart(initialCart);
   }, [initialCart]);
 
-  // console.log("product data Cart page", cart);
-
   const { total, shipping } = useMemo(() => {
     let shipping = 50;
     const allSubtotals = cart.reduce((total, item) => {
       const price = parseFloat(item.price);
-      const discountedPrice = item.discount ? price * (1 - item.discount / 100) : price;
+      const discountPercent = item.discountPercent || 0; // Use discountPercent with a default of 10%
+      const discountedPrice = price * (1 - discountPercent / 100);
       return total + discountedPrice;
     }, 0);
 
     const total = Math.round((allSubtotals + Number.EPSILON) * 100) / 100;
     shipping = total > 0 ? 50 : 0;
 
-    // console.log('total', total);
     return { total, shipping };
   }, [cart]);
 
@@ -71,7 +69,7 @@ export default function AddToCart() {
           </button>
         </div>
         <div className={styles.total}>
-          <CartTotal total={total} shipping={shipping}/>
+          <CartTotal total={total} shipping={shipping} />
         </div>
         <div className={styles.btn}>
           <button className={styles.clearCart} onClick={clearCart}>

@@ -3,11 +3,14 @@ import { useContext, createContext, useReducer, useEffect } from "react";
 export const ProductContext = createContext();
 
 const getLocalStorage = () => {
-  if(typeof window !== 'undefined'){
-    let cart = localStorage.getItem('cart')
+  if (typeof window !== 'undefined') {
+    let cart = localStorage.getItem('cart');
 
-    if(cart){
-      return JSON.parse(localStorage.getItem('cart'));
+    if (cart) {
+      return JSON.parse(localStorage.getItem('cart')).map(item => ({
+        ...item,
+        discount: item.discount || 0 // Ensure discount is set, default to 0 if undefined
+      }));
     } else {
       return [];
     }
