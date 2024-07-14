@@ -56,7 +56,7 @@ export default function Navigation() {
         </ul> */}
         <ul className={styles.link}>
           <li>
-            <Link href="/">All Art</Link>
+            <Link href="/all-art">All Art</Link>
           </li>
         </ul>
         <ul className={styles.link}>
