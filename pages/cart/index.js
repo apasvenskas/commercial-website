@@ -13,13 +13,16 @@ export default function AddToCart() {
   // Sync cart state with context on client-side
   useEffect(() => {
     setCart(initialCart);
+    initialCart.forEach(item => {
+      console.log('cart index discountPercent', item.discountPercent);
+    });
   }, [initialCart]);
 
   const { total, shipping } = useMemo(() => {
     let shipping = 50;
     const allSubtotals = cart.reduce((total, item) => {
       const price = parseFloat(item.price);
-      const discountPercent = item.discountPercent || 0; // Use discountPercent with a default of 10%
+      const discountPercent = item.discountPercent || 0; // Use discountPercent with a default of 0%
       const discountedPrice = price * (1 - discountPercent / 100);
       return total + discountedPrice;
     }, 0);
@@ -52,6 +55,7 @@ export default function AddToCart() {
           {cart && cart.length > 0 ? (
             cart.map((item) => (
               <div key={item.id}>
+                {console.log('cart item discountPercent', item.discountPercent)}
                 <CartComponent item={item} />
               </div>
             ))
@@ -80,4 +84,5 @@ export default function AddToCart() {
     </>
   );
 }
+
 
