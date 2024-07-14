@@ -1,4 +1,5 @@
 import styles from "./cartTotal.module.css";
+import Link from "next/link";
 
 function insertDecimal(num){
   return (num / 100).toFixed(2);
@@ -29,7 +30,9 @@ export default function CartTotal({ total, shipping }) {
         </div>
         <div className={styles.checkout}>
           <div className={styles.btn}>
-            <button className={styles.button}>Login To Proceed</button>
+            <Link href={'/user/checkout'}>
+            <button className={styles.button}>Proceed to checkout</button>
+            </Link>
           </div>
         </div>
       </div>
