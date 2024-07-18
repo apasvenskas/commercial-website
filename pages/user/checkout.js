@@ -6,43 +6,50 @@ import PaypalButton from "@/components/cart/paypalButton";
 export default function Checkout() {
     const { cart } = useProductContext();
     const [loading, setIsLoading] = useState(true);
-    const [amount, setAmount] = useState();
+    const [amount, setAmount] = useState(0);
 
     useEffect(() => {
         setIsLoading(false);
     }, []);
 
     useEffect(() => {
-        if (!loading && cart.length) {
-            const allItemSubTotals = cart.map(item => {
-                return item.discountPercent 
-                    ? item.price * (item.discountPercent / 100)
-                    : item.price * item.numItem; // corrected variable name
-            });
+        if (!loading) {
+            console.log("Cart data:", cart); // Log cart data
 
-            const initialAmount = 0;
-            const allSubtotals = allItemSubTotals.reduce(
-                (previousAmount, currentAmount) => previousAmount + currentAmount,
-                initialAmount
-            );
+            if (cart.length > 0) {
+                const allItemSubTotals = cart.map(item => {
+                    const price = parseFloat(item.price); // Convert price to number
+                    const itemSubtotal = item.discountPercent 
+                        ? price * item.numItems * (1 - item.discountPercent / 100)
+                        : price * item.numItems;
+                    console.log(`Item subtotal for ${item.title}:`, itemSubtotal); // Log each item's subtotal
+                    return itemSubtotal;
+                });
 
-            const total = Math.round((allSubtotals + Number.EPSILON) * 100) / 100;
-            const shipping = total > 0 ? 50 : 0;
-            const finalAmount = total + shipping;
-            setAmount(finalAmount.toFixed(2));
+                const total = allItemSubTotals.reduce((sum, current) => sum + current, 0);
+                console.log("Total before shipping:", total); // Log total before adding shipping
+
+                const shipping = total > 0 ? 50 : 0;
+                console.log("Shipping cost:", shipping); // Log shipping cost
+
+                const finalAmount = total + shipping;
+                console.log("Final amount:", finalAmount); // Log final amount
+
+                setAmount(finalAmount.toFixed(2));
+            } else {
+                setAmount(0);
+            }
         }
     }, [loading, cart]);
 
     return (
-        <div>
+        <div className={styles.body}>
             <div className={styles.userBar}>
                 <h3>Hello user...</h3>
             </div>
             <h3>Your cart total is ${amount}</h3>
-            <div className="paypal-button-container">
-                {amount && amount > 50 && 
-                    <PaypalButton cartAmount={amount} />
-                }
+            <div className={styles.paypalButtonContainer}>
+                {amount > 50 && <PaypalButton cartAmount={amount} />}
             </div>
             <div className={styles.tesInfo}>
                 <h4>Test Card info:</h4>
@@ -53,3 +60,5 @@ export default function Checkout() {
         </div>
     );
 }
+
+
