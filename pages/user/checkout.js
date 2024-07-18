@@ -47,7 +47,7 @@ export default function Checkout() {
             <div className={styles.userBar}>
                 <h3>Hello user...</h3>
             </div>
-            <h3>Your cart total is ${amount}</h3>
+            <h3 className={styles.amount}>Your cart total is ${amount}</h3>
             <div className={styles.paypalButtonContainer}>
                 {amount > 50 && <PaypalButton cartAmount={amount} />}
             </div>

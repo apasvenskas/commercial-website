@@ -7,16 +7,36 @@
 
 .userBar{
     background-color: rgb(142, 142, 142);
-    /* width: 30vw; */
     min-width: 20%;
     text-align: center;
     border-radius:6px 6px 0 0;
     padding: .5%;
+    margin-bottom: 1%;
 }
 
-.total{
+.amount{
     margin: 1%;
 }
 
+.total{
+    margin: 2%;
+}
 
+.paypalButtonContainer{
+    min-width: 20%;
+}
+
+.tesInfo {
+    background-color: rgb(205, 220, 233); 
+    padding: 1%;
+    margin-top: 1%; 
+    border: 1px solid rgba(0, 0, 0, 0.1); 
+    box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.2), 
+                inset -4px -4px 8px rgba(255, 255, 255, 0.6); 
+    border-radius: 8px; 
+}
+
+.tesInfo h4 {
+    margin-bottom: 1%;
+}
 
