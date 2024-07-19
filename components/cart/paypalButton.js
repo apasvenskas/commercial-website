@@ -1,9 +1,12 @@
 import React from 'react';
 import { useProductContext } from "@/state/context/productContext";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { useState, useEffect } from 'react';
+import stockManager from '@/utils/stockManager';
 
-const PaypalButton = ({ cartAmount }) => {
+const PaypalButton = ({cart, cartAmount }) => {
     const { clearCart } = useProductContext();
+    const [updateStock, setUpdateStock] = useState(false)
 
     const handleCreateOrder = (data, actions) => {
         console.log("Creating order with amount:", cartAmount);
@@ -18,9 +21,20 @@ const PaypalButton = ({ cartAmount }) => {
         });
     };
 
+useEffect(() =>{
+    if(updateStock){
+        stockManager(cart)
+    }
+    // eslint-disable-next-line
+}, [updateStock])
+
+
     const handleApprove = (data, actions) => {
         console.log("Order approved:", data);
-        return actions.order.capture().then((details) => {
+        return actions.order
+            .capture()
+            .then(setUpdateStock(true))
+            .then((details) => {
             const name = details.payer.name.given_name;
             console.log("Transaction details:", details);
             alert(`Transaction completed by ${name}`);

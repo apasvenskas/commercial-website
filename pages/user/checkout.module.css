@@ -6,12 +6,16 @@
 }
 
 .userBar{
-    background-color: rgb(142, 142, 142);
+    background-color: rgb(100, 96, 96);
     min-width: 20%;
     text-align: center;
     border-radius:6px 6px 0 0;
     padding: .5%;
     margin-bottom: 1%;
+}
+
+.userBar{
+    color: rgb(255, 255, 255);
 }
 
 .amount{
