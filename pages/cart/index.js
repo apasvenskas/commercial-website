@@ -14,7 +14,7 @@ export default function AddToCart() {
   useEffect(() => {
     setCart(initialCart);
     initialCart.forEach(item => {
-      console.log('cart index discountPercent', item.discountPercent);
+      // console.log('cart index discountPercent', item.discountPercent);
     });
   }, [initialCart]);
 

@@ -20,7 +20,7 @@ function capitalizeFirstLetter(string) {
 export default function Home({ data }) {
   const router = useRouter();
   const { type } = router.query;
-  console.log('index type', type)
+  // console.log('index type', type)
   const [theBarTitle, setTheBarTitle] = useState("New Paintings");
 
   useEffect(() => {

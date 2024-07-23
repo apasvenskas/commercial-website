@@ -7,7 +7,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 
 export default function Navigation() {
   const {user} = useUser();
-  console.log("user", user)
+  // console.log("user", user)
   
   // logic for cart items showing up in the cart
   const [loading, setLoading] = useState(true);

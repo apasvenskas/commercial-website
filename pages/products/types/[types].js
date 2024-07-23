@@ -12,10 +12,10 @@ const hygraph = new GraphQLClient(process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT, {
 });
 
 export default function TypesOfArt({ data, error, type, allTypes }) {
-  console.log('Received data:', data);
-  console.log('Received error:', error);
-  console.log('Received type:', type);
-  console.log('All available types:', allTypes);
+  // console.log('Received data:', data);
+  // console.log('Received error:', error);
+  // console.log('Received type:', type);
+  // console.log('All available types:', allTypes);
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -61,7 +61,7 @@ export default function TypesOfArt({ data, error, type, allTypes }) {
 export async function getServerSideProps(context) {
   try {
     const { types } = context.params;
-    console.log('Received types parameter:', types);
+    // console.log('Received types parameter:', types);
 
     // Query to get all paintings and their types
     const allPaintingsQuery = gql`
@@ -75,7 +75,7 @@ export async function getServerSideProps(context) {
 
     const allPaintingsData = await hygraph.request(allPaintingsQuery);
     const allTypes = [...new Set(allPaintingsData.paintings.map(painting => painting.type))];
-    console.log('All available types:', allTypes);
+    // console.log('All available types:', allTypes);
 
     if (!types) {
       return {
@@ -112,8 +112,8 @@ export async function getServerSideProps(context) {
     `;
 
     const variables = { type: adjustedType || types };
-    console.log('GraphQL Query:', query);
-    console.log('Variables:', variables);
+    // console.log('GraphQL Query:', query);
+    // console.log('Variables:', variables);
 
     const data = await hygraph.request(query, variables);
     console.log('Received data from Hygraph:', JSON.stringify(data, null, 2));

@@ -21,7 +21,7 @@ const useGetPaintingDetails = (item) => {
     const stock = item?.stock ?? 0;
     const numItems = 1;
 
-    console.log('Item passed to useGetPaintingDetails:', item);
+    // console.log('Item passed to useGetPaintingDetails:', item);
     console.log('Computed details:', {
         isNewProduct,
         isPromoProd,

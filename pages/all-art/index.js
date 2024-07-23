@@ -12,8 +12,8 @@ const hygraph = new GraphQLClient(process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT, {
 });
 
 export default function AllArt({ data, error }) {
-  console.log('Received data:', data);
-  console.log('Received error:', error);
+  // console.log('Received data:', data);
+  // console.log('Received error:', error);
 
   if (error) {
     return <div>Error: {error}</div>;

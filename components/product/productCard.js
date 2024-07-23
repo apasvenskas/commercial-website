@@ -8,7 +8,7 @@ export default function ProductCard({ item }) {
   const { banner, setBanner } = useState(false);
   const { addToCart } = useProductContext();
 
-  console.log('Item in ProductCard:', item);
+  // console.log('Item in ProductCard:', item);
 
   const {
     isNewProduct,
@@ -22,9 +22,6 @@ export default function ProductCard({ item }) {
     id,
     title,
   } = useGetPaintingDetails(item);
-
-  console.log('Discount Percent in ProductCard:', discountPercent);
-  console.log('Calculated Discount Price:', discountPrice);
 
   const formattedImgSrc = mainImgSrc.startsWith("http")
     ? mainImgSrc

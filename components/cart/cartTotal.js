@@ -10,7 +10,7 @@ export default function CartTotal({ total, shipping }) {
 
   const finalPrice = insertDecimal(total * 100 + shipping * 100);
   const {user} = useUser(); 
-  console.log('user is', user)
+  // console.log('user is', user)
 
   return (
     <section className={styles.section}>

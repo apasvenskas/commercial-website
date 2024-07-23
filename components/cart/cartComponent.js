@@ -15,7 +15,7 @@ export default function CartComponent({ item }) {
   const fullPrice = item.price * 100;
   const price = insertDecimal(fullPrice * (1 - discountPercent / 100));
 
-  console.log("cartComponent discountPercent", discountPercent);
+  // console.log("cartComponent discountPercent", discountPercent);
 
   return (
     <div className={styles.wrapper}>

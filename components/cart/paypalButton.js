@@ -6,7 +6,21 @@ import stockManager from '@/utils/stockManager';
 
 const PaypalButton = ({cart, cartAmount }) => {
     const { clearCart } = useProductContext();
-    const [updateStock, setUpdateStock] = useState(false)
+    const [updateStock, setUpdateStock] = useState(false);
+
+    useEffect(() => {
+        if (updateStock) {
+            stockManager(cart).then(() => {
+                // Clear the cart after stock has been updated
+                clearCart();
+            }).catch((error) => {
+                console.error("Error updating stock: ", error);
+            }).finally(() => {
+                setUpdateStock(false); // Reset the state
+            });
+        }
+        // eslint-disable-next-line
+    }, [updateStock]);
 
     const handleCreateOrder = (data, actions) => {
         console.log("Creating order with amount:", cartAmount);
@@ -21,24 +35,13 @@ const PaypalButton = ({cart, cartAmount }) => {
         });
     };
 
-useEffect(() =>{
-    if(updateStock){
-        stockManager(cart)
-    }
-    // eslint-disable-next-line
-}, [updateStock])
-
-
     const handleApprove = (data, actions) => {
         console.log("Order approved:", data);
-        return actions.order
-            .capture()
-            .then(setUpdateStock(true))
-            .then((details) => {
+        return actions.order.capture().then((details) => {
             const name = details.payer.name.given_name;
             console.log("Transaction details:", details);
             alert(`Transaction completed by ${name}`);
-            clearCart();
+            setUpdateStock(true); // Trigger the useEffect to update stock
         });
     };
 
@@ -63,3 +66,4 @@ useEffect(() =>{
 };
 
 export default PaypalButton;
+
