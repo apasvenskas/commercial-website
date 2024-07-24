@@ -51,7 +51,7 @@ export default function SlugPage({ product }) {
     title,
     subtitle,
     mainContent,
-    numItems
+    numItems,
   } = useGetPaintingDetails(item);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -113,10 +113,17 @@ export default function SlugPage({ product }) {
                 {isPromoProd ? (
                   <div>
                     <p className="fadedPrice">
-                      Price: ${price} <span className={styles.off}>- {discountPercent} % OFF</span>
+                      Price: ${price}{" "}
+                      <span className={styles.off}>
+                        - {discountPercent} % OFF
+                      </span>
                     </p>
                     <p className="fadedPrice">
-                      Promo Price: <span className={styles.discountPrice}> ${discountPrice}</span>
+                      Promo Price:{" "}
+                      <span className={styles.discountPrice}>
+                        {" "}
+                        ${discountPrice}
+                      </span>
                     </p>
                   </div>
                 ) : isNewProduct ? (
@@ -128,32 +135,42 @@ export default function SlugPage({ product }) {
                   </div>
                 ) : (
                   <div>
-                    <p className="regularPainting">
-                      Painting
-                    </p>
+                    <p className="regularPainting">Painting</p>
                     <p className="price">Current Price ${price}</p>
                   </div>
                 )}
               </div>
             </div>
             <div className={styles.buttonWrap}>
-              <Link href="/cart">
-                <button
-                  className={styles.button}
-                  onClick={() =>
-                    addToCart(id, title, stock, price, discountPercent, mainImgSrc, numItems)
-                  }
-                >
-                  {stock > 0 ? "Add To Cart" : "Out of Stock"}
-                  <Image
-                    src="/cart.png"
-                    height={12}
-                    width={13}
-                    alt={`Painting`}
-                    className={styles.cart}
-                  />
-                </button>
-              </Link>
+              {stock > 0 ? (
+                <Link href="/cart">
+                  <button
+                    className={styles.button}
+                    onClick={() =>
+                      addToCart(
+                        id,
+                        title,
+                        stock,
+                        price,
+                        discountPercent,
+                        mainImgSrc,
+                        numItems
+                      )
+                    }
+                  >
+                    Add To Cart
+                    <Image
+                      src="/cart.png"
+                      height={12}
+                      width={13}
+                      alt={`Painting`}
+                      className={styles.cart}
+                    />
+                  </button>
+                </Link>
+              ) : (
+                <h2 className={styles.OutOfStock}>Out of Stock</h2>
+              )}
             </div>
           </div>
           <div className={styles.imageWrapper}>
@@ -183,11 +200,15 @@ export default function SlugPage({ product }) {
           mainSrc={mainImagesSrc[photoIndex].url}
           nextSrc={mainImagesSrc[(photoIndex + 1) % mainImagesSrc.length].url}
           prevSrc={
-            mainImagesSrc[(photoIndex + mainImagesSrc.length - 1) % mainImagesSrc.length].url
+            mainImagesSrc[
+              (photoIndex + mainImagesSrc.length - 1) % mainImagesSrc.length
+            ].url
           }
           onCloseRequest={() => setIsOpen(false)}
           onMovePrevRequest={() =>
-            setPhotoIndex((photoIndex + mainImagesSrc.length - 1) % mainImagesSrc.length)
+            setPhotoIndex(
+              (photoIndex + mainImagesSrc.length - 1) % mainImagesSrc.length
+            )
           }
           onMoveNextRequest={() =>
             setPhotoIndex((photoIndex + 1) % mainImagesSrc.length)

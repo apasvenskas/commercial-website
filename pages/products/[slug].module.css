@@ -88,6 +88,10 @@
     margin-bottom: 3%;
 }
 
+.OutOfStock{
+    color: red;
+}
+
 .imageWrapper{
     margin-top: 2%;
     margin-bottom: 5%;
