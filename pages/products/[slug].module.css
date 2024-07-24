@@ -88,10 +88,6 @@
     margin-bottom: 3%;
 }
 
-.OutOfStock{
-    color: red;
-}
-
 .imageWrapper{
     margin-top: 2%;
     margin-bottom: 5%;
@@ -107,9 +103,20 @@
     justify-content: center;
 }
 
+.imageContainer {
+    overflow: hidden; /* Ensure the image does not overflow its container */
+  }
+
 .img{
     margin: 3%;
+    transition: box-shadow 0.3s ease-in-out;
 }
+
+.img:hover {
+    /* box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.2); */
+    cursor: pointer; 
+    transform: scale(1.05);
+  }
 
 .priceSection{
     margin: 3%;
@@ -133,6 +140,9 @@
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.3); 
 }
 
+.OutOfStock{
+    color: red;
+}
 
 .cart{
     margin-left: 5%;
