@@ -6,6 +6,7 @@ import MenuList from "@/components/menuList/menuList";
 import styles from "./index.module.css";
 import Link from "next/link";
 import ProductCard from "@/components/product/productCard";
+import FetchUsers from "@/utils/fetchUsers";
 
 const hygraph = new GraphQLClient(process.env.HYGRAPH_ENDPOINT, {
   headers: {
@@ -18,6 +19,7 @@ function capitalizeFirstLetter(string) {
 }
 
 export default function Home({ data }) {
+  FetchUsers(); 
   const router = useRouter();
   const { type } = router.query;
   // console.log('index type', type)
