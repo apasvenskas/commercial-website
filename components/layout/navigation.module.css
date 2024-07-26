@@ -66,6 +66,17 @@
     text-align: center;
   }
 
+  /* Add this media query */
+@media (max-width: 815px) {
+  .nav {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+  .nav a {
+      margin-bottom: 10px; /* Add some spacing between nav links */
+  }
+}
+
 
 
 

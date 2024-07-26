@@ -36,3 +36,17 @@
     width: 100%;
     margin-bottom: 5%;
 }
+
+@media (min-height: 1000px) {
+    .card {
+        margin-left: 40%;
+    }
+}
+
+@media (min-height: 1300px) {
+    .card {
+        margin: 0%;
+        margin-top: 3%;
+        align-items: center;
+    }
+}
