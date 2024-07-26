@@ -16,3 +16,19 @@
     margin-top: 8%;
 }
 
+@media (max-width: 815px) {
+    .leftMenu{
+        display: none;
+    }
+    .menuIcon{
+        margin-top: 10%;
+    }
+  }
+
+  @media (min-width: 815px) {
+
+    .menuIcon{
+        display: none;
+    }
+  }
+

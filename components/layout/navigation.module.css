@@ -69,13 +69,43 @@
   /* Add this media query */
 @media (max-width: 815px) {
   .nav {
-      flex-direction: column;
-      align-items: flex-start;
+      /* flex-direction: column;
+      align-items: flex-start; */
+      margin: 0%;
+      min-width: 50%;
+      margin-bottom: 2%;
+      margin-top: 3%;
+      background-color:rgb(240, 225, 205);
+      padding: 1%;
+      border-radius: 10px;
   }
   .nav a {
       margin-bottom: 10px; /* Add some spacing between nav links */
   }
+  .topHeader{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .name{
+    margin-right: 55%;
+    
+  }
 }
+
+@media (max-width: 500px){
+.nav{
+  min-width: 70%;
+}
+}
+
+@media (max-width: 350px){
+  .nav{
+    min-width: 90%;
+  }
+  }
+
+
 
 
 

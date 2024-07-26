@@ -2,6 +2,7 @@ import { GraphQLClient, gql } from "graphql-request";
 import styles from "./menuList.module.css";
 import { useEffect, useState } from "react";
 import ListItem from "./ListItem";
+import Image from "next/image";
 
 const hygraph = new GraphQLClient(process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT, {
   headers: {
@@ -26,6 +27,7 @@ export default function MenuList() {
   const [data, setData] = useState([]);
   const [hoveredType, setHoveredType] = useState(null);
   const [titles, setTitles] = useState([]);
+  const [menuHidden, setMenuHidden] = useState(true);
 
   useEffect(() => {
     async function getMenuItems() {
@@ -63,7 +65,20 @@ export default function MenuList() {
   // Deduplicate types
   const uniqueTypes = [...new Set(data.map(item => item.type))];
 
+  function handleMenuOnClick(){
+    setMenuHidden(!menuHidden);
+  }
+
+  const openMenuIcon = '/burger-bar.png';
+  const closeMenuIcon = '/close-icon.png';
+
   return (
+    <div className={styles.wraper}>
+      <div className={styles.sidebar}>
+        <div onClick={handleMenuOnClick} className={styles.menuIcon}>
+          <Image src={menuHidden ? openMenuIcon : closeMenuIcon} height={22} width={39} alt="menu"/>
+        </div>
+      </div>
     <div className={styles.leftMenu}>
       <div className={styles.menu}>
         <div className={styles.menuTitleSection}>
@@ -84,6 +99,7 @@ export default function MenuList() {
           ))}
         </div>
       </div>
+    </div>
     </div>
   );
 }
