@@ -28,6 +28,7 @@ export default function MenuList() {
   const [hoveredType, setHoveredType] = useState(null);
   const [titles, setTitles] = useState([]);
   const [menuHidden, setMenuHidden] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     async function getMenuItems() {
@@ -38,13 +39,24 @@ export default function MenuList() {
           title: capitalizeFirstLetter(item.title),
           type: capitalizeFirstLetter(item.type),
         }));
-        setData(transformedData); // Ensure this matches the structure of the fetched data
+        setData(transformedData);
       } catch (error) {
         console.error("Error fetching data: ", error);
         setData([]);
       }
     }
     getMenuItems();
+
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 815);
+      if (window.innerWidth >= 815) {
+        setMenuHidden(false);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const handleMouseOver = (type) => {
@@ -62,10 +74,9 @@ export default function MenuList() {
     return <div>Loading...</div>;
   }
 
-  // Deduplicate types
   const uniqueTypes = [...new Set(data.map(item => item.type))];
 
-  function handleMenuOnClick(){
+  function handleMenuOnClick() {
     setMenuHidden(!menuHidden);
   }
 
@@ -75,34 +86,40 @@ export default function MenuList() {
   return (
     <div className={styles.wraper}>
       <div className={styles.sidebar}>
-        <div onClick={handleMenuOnClick} className={styles.menuIcon}>
-          <Image src={menuHidden ? openMenuIcon : closeMenuIcon} height={22} width={39} alt="menu"/>
+        {isMobile && (
+          <div onClick={handleMenuOnClick} className={styles.menuIcon}>
+            <Image src={menuHidden ? openMenuIcon : closeMenuIcon} height={22} width={39} alt="menu" />
+          </div>
+        )}
+      </div>
+      <div className={`${styles.leftMenu} ${isMobile && menuHidden ? styles.hideMenu : styles.showMenu}`}>
+        <div className={styles.menu}>
+          <div className={styles.menuTitleSection}>
+            <div className={styles.menuTitle}></div>
+          </div>
+        </div>
+        <div className={styles.menuHeader}>
+          <h3>Categories</h3>
+          <div className={styles.types}>
+            {uniqueTypes.map((type, idx) => (
+              <ListItem
+                key={idx}
+                item={{ type }}
+                onMouseOver={() => handleMouseOver(type)}
+                onMouseLeave={handleMouseLeave}
+                titles={hoveredType === type ? titles : []}
+              />
+            ))}
+          </div>
         </div>
       </div>
-    <div className={styles.leftMenu}>
-      <div className={styles.menu}>
-        <div className={styles.menuTitleSection}>
-          <div className={styles.menuTitle}></div>
-        </div>
-      </div>
-      <div className={styles.menuHeader}>
-        <h3>Categories</h3>
-        <div className={styles.types}>
-          {uniqueTypes.map((type, idx) => (
-            <ListItem
-              key={idx}
-              item={{ type }}
-              onMouseOver={() => handleMouseOver(type)}
-              onMouseLeave={handleMouseLeave}
-              titles={hoveredType === type ? titles : []}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
     </div>
   );
 }
+
+
+
+
 
 
 
