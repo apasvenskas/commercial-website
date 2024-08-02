@@ -13,6 +13,7 @@ import "react-image-lightbox/style.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Head from "next/head";
 
 const hygraph = new GraphQLClient(process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT, {
   headers: {
@@ -80,142 +81,150 @@ export default function SlugPage({ product }) {
   };
 
   return (
-    <section className={styles.body}>
-      <div className={styles.menuSection}>
-        <MenuList />
-      </div>
-      <div className={styles.mainSection}>
-        <div className={styles.theBarContainer}>
-          <TheBar className={styles.theBar} title={title} />
+    <>
+      <Head>
+        <title>{title}</title>
+      </Head>
+      <section className={styles.body}>
+        <div className={styles.menuSection}>
+          <MenuList />
         </div>
-        <div className={styles.productInfo}>
-          <div className={styles.productDetails}>
-            <div className={styles.product}>
-              <div className={styles.subtitle}>
-                <h3>{capitalizeFirstLetter(subtitle)}</h3>
-              </div>
-              <div className={styles.descriptionSection}>
-                <div className={styles.descriptionTitle}>
-                  <p>Product Description</p>
+        <div className={styles.mainSection}>
+          <div className={styles.theBarContainer}>
+            <TheBar className={styles.theBar} title={title} />
+          </div>
+          <div className={styles.productInfo}>
+            <div className={styles.productDetails}>
+              <div className={styles.product}>
+                <div className={styles.subtitle}>
+                  <h3>{capitalizeFirstLetter(subtitle)}</h3>
                 </div>
-                <div className={styles.description}>
-                  <RichText content={mainContent} />
-                  <div className={styles.link}>
-                    <Link className={styles.artistLink} href="/products/artist">
-                      More from the same Artist
-                    </Link>
+                <div className={styles.descriptionSection}>
+                  <div className={styles.descriptionTitle}>
+                    <p>Product Description</p>
+                  </div>
+                  <div className={styles.description}>
+                    <RichText content={mainContent} />
+                    <div className={styles.link}>
+                      <Link
+                        className={styles.artistLink}
+                        href="/products/artist"
+                      >
+                        More from the same Artist
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className={styles.priceSection}>
-              <div className={styles.prices}>
-                {isPromoProd ? (
-                  <div>
-                    <p className="fadedPrice">
-                      Price: ${price}{" "}
-                      <span className={styles.off}>
-                        - {discountPercent} % OFF
-                      </span>
-                    </p>
-                    <p className="fadedPrice">
-                      Promo Price:{" "}
-                      <span className={styles.discountPrice}>
-                        {" "}
-                        ${discountPrice}
-                      </span>
-                    </p>
-                  </div>
-                ) : isNewProduct ? (
-                  <div>
-                    <p className="newPainting">
-                      <span>NEW</span> Painting
-                    </p>
-                    <p className="price">Current Price = ${price}</p>
-                  </div>
+              <div className={styles.priceSection}>
+                <div className={styles.prices}>
+                  {isPromoProd ? (
+                    <div>
+                      <p className="fadedPrice">
+                        Price: ${price}{" "}
+                        <span className={styles.off}>
+                          - {discountPercent} % OFF
+                        </span>
+                      </p>
+                      <p className="fadedPrice">
+                        Promo Price:{" "}
+                        <span className={styles.discountPrice}>
+                          {" "}
+                          ${discountPrice}
+                        </span>
+                      </p>
+                    </div>
+                  ) : isNewProduct ? (
+                    <div>
+                      <p className="newPainting">
+                        <span>NEW</span> Painting
+                      </p>
+                      <p className="price">Current Price = ${price}</p>
+                    </div>
+                  ) : (
+                    <div>
+                      <p className="regularPainting">Painting</p>
+                      <p className="price">Current Price ${price}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className={styles.buttonWrap}>
+                {stock > 0 ? (
+                  <Link href="/cart">
+                    <button
+                      className={styles.button}
+                      onClick={() =>
+                        addToCart(
+                          id,
+                          title,
+                          stock,
+                          price,
+                          discountPercent,
+                          mainImgSrc,
+                          numItems
+                        )
+                      }
+                    >
+                      Add To Cart
+                      <Image
+                        src="/cart.png"
+                        height={12}
+                        width={13}
+                        alt={`Painting`}
+                        className={styles.cart}
+                      />
+                    </button>
+                  </Link>
                 ) : (
-                  <div>
-                    <p className="regularPainting">Painting</p>
-                    <p className="price">Current Price ${price}</p>
-                  </div>
+                  <h2 className={styles.OutOfStock}>Out of Stock</h2>
                 )}
               </div>
             </div>
-            <div className={styles.buttonWrap}>
-              {stock > 0 ? (
-                <Link href="/cart">
-                  <button
-                    className={styles.button}
-                    onClick={() =>
-                      addToCart(
-                        id,
-                        title,
-                        stock,
-                        price,
-                        discountPercent,
-                        mainImgSrc,
-                        numItems
-                      )
-                    }
-                  >
-                    Add To Cart
-                    <Image
-                      src="/cart.png"
-                      height={12}
-                      width={13}
-                      alt={`Painting`}
-                      className={styles.cart}
-                    />
-                  </button>
-                </Link>
-              ) : (
-                <h2 className={styles.OutOfStock}>Out of Stock</h2>
-              )}
+            <div className={styles.imageWrapper}>
+              <Slider {...settings}>
+                {mainImagesSrc.length > 0 ? (
+                  mainImagesSrc.map((image, index) => (
+                    <div key={index} className={styles.imageContainer}>
+                      <Image
+                        src={image.url}
+                        height={200}
+                        width={200}
+                        alt={`Painting`}
+                        className={styles.img}
+                        onClick={() => openLightbox(index)}
+                      />
+                    </div>
+                  ))
+                ) : (
+                  <p>No images available</p>
+                )}
+              </Slider>
             </div>
           </div>
-          <div className={styles.imageWrapper}>
-            <Slider {...settings}>
-              {mainImagesSrc.length > 0 ? (
-                mainImagesSrc.map((image, index) => (
-                  <div key={index} className={styles.imageContainer}>
-                    <Image
-                      src={image.url}
-                      height={200}
-                      width={200}
-                      alt={`Painting`}
-                      className={styles.img}
-                      onClick={() => openLightbox(index)}
-                    />
-                  </div>
-                ))
-              ) : (
-                <p>No images available</p>
-              )}
-            </Slider>
-          </div>
         </div>
-      </div>
-      {isOpen && (
-        <Lightbox
-          mainSrc={mainImagesSrc[photoIndex].url}
-          nextSrc={mainImagesSrc[(photoIndex + 1) % mainImagesSrc.length].url}
-          prevSrc={
-            mainImagesSrc[
-              (photoIndex + mainImagesSrc.length - 1) % mainImagesSrc.length
-            ].url
-          }
-          onCloseRequest={() => setIsOpen(false)}
-          onMovePrevRequest={() =>
-            setPhotoIndex(
-              (photoIndex + mainImagesSrc.length - 1) % mainImagesSrc.length
-            )
-          }
-          onMoveNextRequest={() =>
-            setPhotoIndex((photoIndex + 1) % mainImagesSrc.length)
-          }
-        />
-      )}
-    </section>
+        {isOpen && (
+          <Lightbox
+            mainSrc={mainImagesSrc[photoIndex].url}
+            nextSrc={mainImagesSrc[(photoIndex + 1) % mainImagesSrc.length].url}
+            prevSrc={
+              mainImagesSrc[
+                (photoIndex + mainImagesSrc.length - 1) % mainImagesSrc.length
+              ].url
+            }
+            onCloseRequest={() => setIsOpen(false)}
+            onMovePrevRequest={() =>
+              setPhotoIndex(
+                (photoIndex + mainImagesSrc.length - 1) % mainImagesSrc.length
+              )
+            }
+            onMoveNextRequest={() =>
+              setPhotoIndex((photoIndex + 1) % mainImagesSrc.length)
+            }
+          />
+        )}
+      </section>
+    </>
   );
 }
 

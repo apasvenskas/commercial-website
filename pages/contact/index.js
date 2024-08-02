@@ -3,6 +3,7 @@ import MenuList from "@/components/menuList/menuList";
 import TheBar from "@/components/product/theBar";
 import styles from "./index.module.css";
 import emailjs from "emailjs-com";
+import Head from "next/head";
 
 export default function Contacts() {
   const title = "Contacts";
@@ -32,6 +33,9 @@ export default function Contacts() {
 
   return (
     <>
+      <Head>
+        <title>{title}</title>
+      </Head>
       <div className={styles.body}>
         <div className={styles.menuDiv}>
           <MenuList />

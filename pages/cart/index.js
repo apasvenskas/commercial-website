@@ -5,6 +5,7 @@ import CartComponent from "@/components/cart/cartComponent";
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import CartTotal from "../../components/cart/cartTotal";
+import Head from "next/head";
 
 export default function AddToCart() {
   const { cart: initialCart, clearCart } = useProductContext();
@@ -13,7 +14,7 @@ export default function AddToCart() {
   // Sync cart state with context on client-side
   useEffect(() => {
     setCart(initialCart);
-    initialCart.forEach(item => {
+    initialCart.forEach((item) => {
       // console.log('cart index discountPercent', item.discountPercent);
     });
   }, [initialCart]);
@@ -35,6 +36,9 @@ export default function AddToCart() {
 
   return (
     <>
+      <Head>
+        <title>Cart Page</title>
+      </Head>
       <div className={styles.theBarContainer}>
         <TheBar className={styles.theBar} title="Cart Page" />
       </div>
@@ -55,7 +59,7 @@ export default function AddToCart() {
           {cart && cart.length > 0 ? (
             cart.map((item) => (
               <div key={item.id}>
-                {console.log('cart item discountPercent', item.discountPercent)}
+                {console.log("cart item discountPercent", item.discountPercent)}
                 <CartComponent item={item} />
               </div>
             ))
@@ -84,5 +88,3 @@ export default function AddToCart() {
     </>
   );
 }
-
-

@@ -4,6 +4,7 @@ import { GraphQLClient, gql } from "graphql-request";
 import styles from "./[types].module.css";
 import ProductCard from "@/components/product/productCard";
 import Link from "next/link";
+import Head from "next/head";
 
 const hygraph = new GraphQLClient(process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT, {
   headers: {
@@ -12,10 +13,6 @@ const hygraph = new GraphQLClient(process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT, {
 });
 
 export default function TypesOfArt({ data, error, type, allTypes }) {
-  // console.log('Received data:', data);
-  // console.log('Received error:', error);
-  // console.log('Received type:', type);
-  // console.log('All available types:', allTypes);
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -38,6 +35,10 @@ export default function TypesOfArt({ data, error, type, allTypes }) {
   const topBarType = type || "New Art";
 
   return (
+    <>
+     <Head>
+        <title>{topBarType}</title>
+      </Head>
     <section className={styles.body}>
       <div className={styles.menuDiv}>
         <MenuList />
@@ -55,6 +56,7 @@ export default function TypesOfArt({ data, error, type, allTypes }) {
         </div>
       </div>
     </section>
+    </>
   );
 }
 

@@ -7,6 +7,7 @@ import styles from "./index.module.css";
 import Link from "next/link";
 import ProductCard from "@/components/product/productCard";
 import FetchUsers from "@/utils/fetchUsers";
+import Head from "next/head";
 
 const hygraph = new GraphQLClient(process.env.HYGRAPH_ENDPOINT, {
   headers: {
@@ -42,6 +43,10 @@ export default function Home({ data }) {
   });
 
   return (
+    <>
+    <Head>
+        <title>{theBarTitle}</title>
+      </Head>
     <div className={styles.body}>
       <div className={styles.menuDiv}>
         <MenuList className="menu" />
@@ -61,6 +66,7 @@ export default function Home({ data }) {
         </div>
       </div>
     </div>
+    </>
   );
 }
 
