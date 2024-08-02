@@ -44,14 +44,9 @@ export default function Navigation() {
         </Link>
       </div>
       <nav className={styles.nav}>
-        <ul className={styles.link}>
-          <li>
-            <Link href={`/products/artist`}>Artist</Link>
-          </li>
-        </ul>
         {/* <ul className={styles.link}>
           <li>
-            <Link href="/">New Art</Link>
+            <Link href={`/products/artist`}>Artist</Link>
           </li>
         </ul> */}
         <ul className={styles.link}>

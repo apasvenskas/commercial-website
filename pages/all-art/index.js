@@ -26,7 +26,7 @@ export default function AllArt({ data, error }) {
   return (
     <>
       <Head>
-        <title>{topBarType}</title>
+        <title>All Art</title>
         <meta name="description" content="All the art pieces that Laisvieji Menininkai" />
       </Head>
       <section className={styles.body}>

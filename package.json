@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "npm install --legacy-peer-deps"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^3.5.0",
@@ -24,6 +25,9 @@
     "react-slick": "^0.30.2",
     "slick-carousel": "^1.8.1",
     "styled-components": "^6.1.11"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   },
   "devDependencies": {
     "eslint": "^8",

@@ -2,6 +2,7 @@ import Link from "next/link";
 import MenuList from "@/components/menuList/menuList";
 import TheBar from "@/components/product/theBar";
 import styles from "./index.module.css";
+import Head from "next/head";
 
 const ArtistsPage = () => {
   // Replace this with your actual data fetching logic
@@ -11,6 +12,11 @@ const ArtistsPage = () => {
   ];
 
   return (
+    <>
+    <Head>
+        <title>Artist</title>
+        <meta name="description" content="The artist assocciated with Laisvieji Menininkai" />
+      </Head>
     <section className={styles.body}>
       <div className={styles.menu}>
         <MenuList />
@@ -28,6 +34,7 @@ const ArtistsPage = () => {
         </ul>
       </div>
     </section>
+    </>
   );
 };
 
