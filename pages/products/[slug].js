@@ -84,6 +84,7 @@ export default function SlugPage({ product }) {
     <>
       <Head>
         <title>{title}</title>
+        <meta name="description" content={`${title} details`} />
       </Head>
       <section className={styles.body}>
         <div className={styles.menuSection}>

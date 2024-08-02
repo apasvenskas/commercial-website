@@ -46,6 +46,7 @@ export default function Home({ data }) {
     <>
     <Head>
         <title>{theBarTitle}</title>
+        <meta name="description" content="New art from Laisvieji Menininkai" />
       </Head>
     <div className={styles.body}>
       <div className={styles.menuDiv}>

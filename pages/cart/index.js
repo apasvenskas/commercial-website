@@ -38,6 +38,7 @@ export default function AddToCart() {
     <>
       <Head>
         <title>Cart Page</title>
+        <meta name="description" content= "Cart Page" />
       </Head>
       <div className={styles.theBarContainer}>
         <TheBar className={styles.theBar} title="Cart Page" />

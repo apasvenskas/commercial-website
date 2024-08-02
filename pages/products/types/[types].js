@@ -38,6 +38,7 @@ export default function TypesOfArt({ data, error, type, allTypes }) {
     <>
      <Head>
         <title>{topBarType}</title>
+        <meta name="description" content={`${topBarType} details`} />
       </Head>
     <section className={styles.body}>
       <div className={styles.menuDiv}>

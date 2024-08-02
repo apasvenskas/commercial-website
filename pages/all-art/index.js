@@ -4,6 +4,7 @@ import { GraphQLClient, gql } from "graphql-request";
 import styles from "./index.module.css";
 import ProductCard from "@/components/product/productCard";
 import Link from "next/link";
+import Head from "next/head";
 
 const hygraph = new GraphQLClient(process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT, {
   headers: {
@@ -12,7 +13,6 @@ const hygraph = new GraphQLClient(process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT, {
 });
 
 export default function AllArt({ data, error }) {
-
   if (error) {
     return <div>Error: {error}</div>;
   }
@@ -24,23 +24,29 @@ export default function AllArt({ data, error }) {
   const productsArray = data.paintings;
 
   return (
-    <section className={styles.body}>
-      <div className={styles.menuDiv}>
-        <MenuList />
-      </div>
-      <div className={styles.mainSection}>
-        <div className={styles.theBarContainer}>
-          <TheBar title="All Art" className={styles.theBar} />
+    <>
+      <Head>
+        <title>{topBarType}</title>
+        <meta name="description" content="All the art pieces that Laisvieji Menininkai" />
+      </Head>
+      <section className={styles.body}>
+        <div className={styles.menuDiv}>
+          <MenuList />
         </div>
-        <div className={styles.card}>
-          {productsArray.map((item) => (
-            <Link href={`/products/${item.slug}`} key={item.id}>
-              <ProductCard item={item} />
-            </Link>
-          ))}
+        <div className={styles.mainSection}>
+          <div className={styles.theBarContainer}>
+            <TheBar title="All Art" className={styles.theBar} />
+          </div>
+          <div className={styles.card}>
+            {productsArray.map((item) => (
+              <Link href={`/products/${item.slug}`} key={item.id}>
+                <ProductCard item={item} />
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
 
@@ -68,7 +74,7 @@ export async function getServerSideProps() {
     `;
 
     const data = await hygraph.request(allPaintingsQuery);
-    console.log('Received data from Hygraph:', JSON.stringify(data, null, 2));
+    console.log("Received data from Hygraph:", JSON.stringify(data, null, 2));
 
     return {
       props: {
@@ -77,7 +83,7 @@ export async function getServerSideProps() {
       },
     };
   } catch (error) {
-    console.error('Detailed error:', error);
+    console.error("Detailed error:", error);
     return {
       props: {
         data: null,

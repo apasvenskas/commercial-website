@@ -35,6 +35,7 @@ export default function Contacts() {
     <>
       <Head>
         <title>{title}</title>
+        <meta name="description" content="Contacts" />
       </Head>
       <div className={styles.body}>
         <div className={styles.menuDiv}>

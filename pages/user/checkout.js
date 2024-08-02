@@ -56,6 +56,7 @@ export default function Checkout() {
     <>
       <Head>
         <title>Checkout Page</title>
+        <meta name="description" content= "Checkout Page" />
       </Head>
       <div className={styles.body}>
         <div className={styles.userBar}>

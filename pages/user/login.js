@@ -7,6 +7,7 @@ export default function Login() {
     <>
       <Head>
         <title>Login Page</title>
+        <meta name="description" content= "Login page" />
       </Head>
       <section className={styles.mainSection}>
         <div className={styles.container}>

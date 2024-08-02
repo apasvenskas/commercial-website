@@ -7,6 +7,7 @@ export default function Logout() {
     <>
       <Head>
         <title>Logout Page</title>
+        <meta name="description" content= "Logout page" />
       </Head>
       <section className={styles.mainSection}>
         <div className={styles.container}>
