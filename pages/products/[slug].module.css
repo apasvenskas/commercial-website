@@ -1,32 +1,32 @@
-.body{
+.body {
     display: flex;
     flex-direction: row;
     gap: 2.5%;
     margin-top: 2%;
-}
-
-.menuSection {
+  }
+  
+  .menuSection {
     margin-left: 5%;
-}
-
-.mainSection {
+  }
+  
+  .mainSection {
     width: 75.2%;
     margin-right: 5%;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-left: 3%;
-}
-
-.theBarContainer {
+  }
+  
+  .theBarContainer {
     width: 100%;
-}
-
-.theBar {
+  }
+  
+  .theBar {
     width: 100%;
-}
-
-.card {
+  }
+  
+  .card {
     align-items: center;
     display: flex;
     flex-direction: row;
@@ -34,116 +34,131 @@
     margin-top: 3%;
     gap: 5%;
     width: 100%;
-}
-
-.productInfo {
+  }
+  
+  .productInfo {
     margin-top: 3%;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    width: 100%; 
-}
-
-.subtitle{
+    width: 100%;
+  }
+  
+  .subtitle {
     margin-bottom: 10%;
-}
-
-.descriptionTitle{
-    text-decoration: underline;;
-}
-
-.description{
+  }
+  
+  .descriptionTitle {
+    text-decoration: underline;
+  }
+  
+  .description {
     margin-bottom: 5%;
-}
-
-.link{
+  }
+  
+  .link {
     margin: 3%;
-}
-.artistLink{
+  }
+  
+  .artistLink {
     color: rgb(79, 21, 134);
     font-size: 16px;
-    
-}
-
-.artistLink:hover{
+  }
+  
+  .artistLink:hover {
     font-size: 18px;
-}
-
-.descriptionSection{
+  }
+  
+  .descriptionSection {
     margin-bottom: 10%;
     border-bottom: 2px solid #000;
-}
-
-.descriptionTitle{
+  }
+  
+  .descriptionTitle {
     margin-bottom: 3%;
-}
-
-.productDetails, .imageWrapper {
-    flex: 0 0 auto; 
-}
-
-
-.product{
+  }
+  
+  .productDetails,
+  .imageWrapper {
+    flex: 0 0 auto;
+  }
+  
+  .product {
     margin-bottom: 3%;
-}
-
-.imageWrapper{
+  }
+  
+  .imageWrapper {
     margin-top: 2%;
     margin-bottom: 5%;
     background-color: rgb(255, 255, 255);
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     width: 100%;
     border-radius: 10px;
-}
-
-.images{
+  }
+  
+  .images {
     display: flex;
     flex-direction: row;
     justify-content: center;
-}
-
-.imageContainer {
-    overflow: hidden; /* Ensure the image does not overflow its container */
   }
-
-.img{
+  
+  .imageContainer {
+    overflow: hidden;
+  }
+  
+  .img {
     margin: 3%;
     transition: box-shadow 0.3s ease-in-out;
-}
-
-.img:hover {
-    /* box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.2); */
-    cursor: pointer; 
+  }
+  
+  .img:hover {
+    cursor: pointer;
     transform: scale(1.05);
   }
 
-.priceSection{
+/* In your global CSS file or a dedicated stylesheet */
+.zoomContainer {
+    position: relative; /* Ensure positioning context for overlay */
+  }
+  
+  .zoomContainer img {
+    cursor: pointer; /* Indicate clickable image */
+  }
+  
+  .zoomContainer .zoomedImage {
+    max-width: 200vw; /* Adjust width for zoomed image */
+    max-height: 200vh; /* Adjust height for zoomed image */
+  }
+  
+
+  .priceSection {
     margin: 3%;
-}
-
-.off{
+  }
+  
+  .off {
     color: red;
-}
-
-.button {
+  }
+  
+  .button {
     margin: 3%;
     padding: 1%;
     width: 120px;
     background-color: rgb(220, 215, 215);
     align-items: center;
     border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 
-}
-
-.button:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.3); 
-}
-
-.OutOfStock{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  .button:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
+  }
+  
+  .OutOfStock {
     color: red;
-}
-
-.cart{
+  }
+  
+  .cart {
     margin-left: 5%;
-}
+  }
+  

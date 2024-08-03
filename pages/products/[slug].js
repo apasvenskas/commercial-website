@@ -7,9 +7,8 @@ import { RichText } from "@graphcms/rich-text-react-renderer";
 import Link from "next/link";
 import Image from "next/image";
 import { useProductContext } from "../../state/context/productContext";
-import { useState } from "react";
-import Lightbox from "react-image-lightbox";
-import "react-image-lightbox/style.css";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -54,14 +53,6 @@ export default function SlugPage({ product }) {
     mainContent,
     numItems,
   } = useGetPaintingDetails(item);
-
-  const [isOpen, setIsOpen] = useState(false);
-  const [photoIndex, setPhotoIndex] = useState(0);
-
-  const openLightbox = (index) => {
-    setPhotoIndex(index);
-    setIsOpen(true);
-  };
 
   const settings = {
     dots: true,
@@ -187,14 +178,17 @@ export default function SlugPage({ product }) {
                 {mainImagesSrc.length > 0 ? (
                   mainImagesSrc.map((image, index) => (
                     <div key={index} className={styles.imageContainer}>
-                      <Image
-                        src={image.url}
-                        height={200}
-                        width={200}
-                        alt={`Painting`}
-                        className={styles.img}
-                        onClick={() => openLightbox(index)}
-                      />
+                      <div className={styles.zoomContainer}>
+                        <Zoom>
+                          <Image
+                            src={image.url}
+                            height={200}
+                            width={200}
+                            alt={`Painting`}
+                            className={styles.img}
+                          />
+                        </Zoom>
+                      </div>
                     </div>
                   ))
                 ) : (
@@ -204,26 +198,6 @@ export default function SlugPage({ product }) {
             </div>
           </div>
         </div>
-        {isOpen && (
-          <Lightbox
-            mainSrc={mainImagesSrc[photoIndex].url}
-            nextSrc={mainImagesSrc[(photoIndex + 1) % mainImagesSrc.length].url}
-            prevSrc={
-              mainImagesSrc[
-                (photoIndex + mainImagesSrc.length - 1) % mainImagesSrc.length
-              ].url
-            }
-            onCloseRequest={() => setIsOpen(false)}
-            onMovePrevRequest={() =>
-              setPhotoIndex(
-                (photoIndex + mainImagesSrc.length - 1) % mainImagesSrc.length
-              )
-            }
-            onMoveNextRequest={() =>
-              setPhotoIndex((photoIndex + 1) % mainImagesSrc.length)
-            }
-          />
-        )}
       </section>
     </>
   );
