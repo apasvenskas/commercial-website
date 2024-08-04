@@ -2,7 +2,7 @@ import useGetPaintingDetails from "@/utils/useGetPainitngsDetails";
 import styles from "./productCard.module.css";
 import Image from "next/image";
 import { useState } from "react";
-import { useProductContext } from '../../state/context/productContext';
+import { useProductContext } from '@/state/context/productContext';
 
 
 export default function ProductCard({ item }) {

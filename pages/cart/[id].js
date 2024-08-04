@@ -6,7 +6,7 @@ import styles from "./[id].module.css"
 import { RichText } from "@graphcms/rich-text-react-renderer";
 import Link from "next/link";
 import Image from "next/image";
-import { useProductContext } from "../../state/context/productContext";
+import { useProductContext } from "@/state/context/productContext";
 import Head from "next/head";
 
 const hygraph = new GraphQLClient(process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT, {

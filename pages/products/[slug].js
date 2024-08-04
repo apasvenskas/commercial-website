@@ -6,7 +6,7 @@ import styles from "./[slug].module.css";
 import { RichText } from "@graphcms/rich-text-react-renderer";
 import Link from "next/link";
 import Image from "next/image";
-import { useProductContext } from "../../state/context/productContext";
+import { useProductContext } from "@/state/context/productContext";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import Slider from "react-slick";
