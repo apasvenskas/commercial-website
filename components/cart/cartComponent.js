@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styles from "./cartComponent.module.css";
 import Image from "next/image";
-import { useProductContext } from '@//productContext';
+import { useProductContext } from '@/state/context/productContext';
 
 
 const insertDecimal = (num) => {
