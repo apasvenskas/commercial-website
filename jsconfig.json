@@ -3,7 +3,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
-      "@/state/*": ["state/*"]
+      "@/state/*": ["state/*"],
+      "@/components/*": ["components/*"],
+      "@/pages/*": ["pages/*"]
     }
   }
 }

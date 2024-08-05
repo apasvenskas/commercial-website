@@ -9,9 +9,9 @@ const nextConfig = {
   images: {
     domains: ['us-east-1-shared-usea1-02.graphassets.com'],
   },
-  webpack: (config) => {
-    config.resolve.alias['@'] = path.resolve(__dirname);
-    config.resolve.alias['@/state'] = path.resolve(__dirname, 'state');
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+    config.resolve.alias['@'] = path.join(__dirname);
+    config.resolve.alias['@/state'] = path.join(__dirname, 'state');
     return config;
   },
 };
