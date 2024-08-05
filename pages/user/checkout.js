@@ -1,4 +1,4 @@
-import { useProductContext } from "../../state/context/productContext";
+import { useProductContext } from '@/src/state/context/productContext';
 import { useEffect, useState } from "react";
 import styles from "./checkout.module.css";
 import PaypalButton from "@/components/cart/paypalButton";

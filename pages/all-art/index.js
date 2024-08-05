@@ -2,7 +2,7 @@ import MenuList from "@/components/menuList/menuList";
 import TheBar from "@/components/product/theBar";
 import { GraphQLClient, gql } from "graphql-request";
 import styles from "./index.module.css";
-import ProductCard from "../../state/context/productContext";
+import ProductCard from "@/components/product/productCard";
 import Link from "next/link";
 import Head from "next/head";
 

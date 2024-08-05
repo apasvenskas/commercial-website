@@ -1,6 +1,6 @@
 import TheBar from "@/components/product/theBar";
 import styles from "./index.module.css";
-import { useProductContext } from '../../state/context/productContext';
+import { useProductContext } from '@/src/state/context/productContext';
 import CartComponent from "@/components/cart/cartComponent";
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
