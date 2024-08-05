@@ -12,10 +12,11 @@ const nextConfig = {
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.resolve.alias['@'] = path.join(__dirname);
     config.resolve.alias['@/state'] = path.join(__dirname, 'state');
+    config.resolve.alias['@/components'] = path.join(__dirname, 'components');
+    config.resolve.alias['@/pages'] = path.join(__dirname, 'pages');
     return config;
   },
 };
 
 export default nextConfig;
-
 
