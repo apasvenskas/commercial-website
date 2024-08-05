@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "./navigation.module.css";
 import { useEffect, useState } from "react";
-import { useProductContext } from '@/state/context/productContext';
+import { useProductContext } from '../../state/context/productContext';
 import { useUser } from "@auth0/nextjs-auth0/client";
 
 export default function Navigation() {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useProductContext } from "@/state/context/productContext";
+import { useProductContext } from "../../state/context/productContext";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useState, useEffect } from 'react';
 import stockManager from '@/utils/stockManager';

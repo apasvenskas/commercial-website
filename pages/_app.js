@@ -1,5 +1,5 @@
 import Layout from "@/components/layout/layout";
-import { ProductProvider } from '@/state/context/productContext';
+import { ProductProvider } from '../state/context/productContext';
 import { UserProvider } from '@auth0/nextjs-auth0/client'
 import "@/styles/globals.css";
 
