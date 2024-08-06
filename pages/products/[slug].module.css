@@ -127,8 +127,8 @@
   }
   
   .zoomContainer .zoomedImage {
-    max-width: 200vw; /* Adjust width for zoomed image */
-    max-height: 200vh; /* Adjust height for zoomed image */
+    max-width: 200vw; 
+    max-height: 200vh; 
   }
   
 
