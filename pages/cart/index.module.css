@@ -122,5 +122,51 @@
   margin-left: 5.5%;
   margin-right: 6%;
 }
+
+@media (max-width: 680px) {
+    .actions{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-right: 20%;
+    }
+    .clearCart{
+      margin: 0%;
+      margin-left: 32%;
+    }
+    .homeLink{
+      margin: 0%;
+      margin-left: 32%;
+      margin-bottom: 10%;
+    }
+  
+}
+
+@media (max-width: 550px) {
+  .cartInfoSection{
+    display: flex;
+    flex-direction: row;
+  }
+  .columnTitle{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 70vh;
+    min-width: 25vh;
+  }
+  .price{
+    margin-top: 46%;
+    padding-bottom: 15%;
+    border-bottom: 1px solid white;
+  }
+  .fechData{
+    margin-left: 2%;
+    display: flex;
+    flex-direction: row;
+  }
+
+}
+
+  
   
 

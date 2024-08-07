@@ -73,3 +73,24 @@
 .button:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.3); 
 }
+
+@media (min-width: 381px) and (max-width: 490px) {
+   .btn{
+        margin: 0%;
+        margin-left: 46%;
+   }
+}
+
+@media (min-width: 281px) and (max-width: 380px) {
+    .btn{
+         margin: 0%;
+         margin-left: 46%;
+    }
+ }
+
+@media (max-width: 280px) {
+    .btn{
+         margin: 0%;
+         margin-left: 50%;
+    }
+ }
