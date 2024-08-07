@@ -15,6 +15,11 @@
     margin-top: 8%;
 }
 
+.types:hover {
+    background-color: rgb(50, 45, 45); /* Change to a lighter shade on hover */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
+
 .leftMenu {
     display: block;
 }

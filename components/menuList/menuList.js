@@ -13,7 +13,6 @@ const hygraph = new GraphQLClient(process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT, {
 const query = gql`
   query MyQuery {
     paintings {
-      title
       type
     }
   }
@@ -26,7 +25,6 @@ function capitalizeFirstLetter(string) {
 export default function MenuList() {
   const [data, setData] = useState([]);
   const [hoveredType, setHoveredType] = useState(null);
-  const [titles, setTitles] = useState([]);
   const [menuHidden, setMenuHidden] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -35,8 +33,6 @@ export default function MenuList() {
       try {
         const response = await hygraph.request(query);
         const transformedData = response.paintings.map(item => ({
-          ...item,
-          title: capitalizeFirstLetter(item.title),
           type: capitalizeFirstLetter(item.type),
         }));
         setData(transformedData);
@@ -61,13 +57,10 @@ export default function MenuList() {
 
   const handleMouseOver = (type) => {
     setHoveredType(type);
-    const filteredTitles = data.filter(item => item.type === type).map(item => item.title);
-    setTitles(filteredTitles);
   };
 
   const handleMouseLeave = () => {
     setHoveredType(null);
-    setTitles([]);
   };
 
   if (!Array.isArray(data)) {
@@ -107,7 +100,8 @@ export default function MenuList() {
                 item={{ type }}
                 onMouseOver={() => handleMouseOver(type)}
                 onMouseLeave={handleMouseLeave}
-                titles={hoveredType === type ? titles : []}
+                titles={hoveredType === type ? [] : []}
+                className={hoveredType === type ? styles.hover : ''}
               />
             ))}
           </div>
@@ -116,6 +110,7 @@ export default function MenuList() {
     </div>
   );
 }
+
 
 
 
