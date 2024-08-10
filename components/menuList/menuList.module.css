@@ -1,3 +1,7 @@
+.header{
+    margin-bottom: 7%;
+}
+
 .menuHeader {
     display: flex;
     flex-direction: column;
@@ -11,14 +15,11 @@
 .types {
     background-color: rgb(30, 25, 25);
     min-width: 120px;
-    padding: 5%;
-    margin-top: 8%;
+    padding: 10px;
+    padding-bottom: 0%;
+    padding-top: 0%;
 }
 
-.types:hover {
-    background-color: rgb(50, 45, 45); /* Change to a lighter shade on hover */
-    cursor: pointer; /* Change cursor to pointer on hover */
-}
 
 .leftMenu {
     display: block;

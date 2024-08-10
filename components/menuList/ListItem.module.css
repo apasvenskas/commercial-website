@@ -1,16 +1,25 @@
-.titles{
+.typesMenu {
+    transition: background-color 0.3s ease; 
+    padding: 10px;
+    margin-left: -9%;
+    margin-right: -9%;
+} 
+
+
+.typesMenu:hover {
+    background-color: rgb(255, 255, 255); 
+    cursor: pointer; 
+}
+
+.p {
+    display: flex;
+    flex-direction: column;
+    color: rgb(200, 195, 195);
+    margin: 1%;
+}
+
+.titles {
     background-color: rgb(30, 25, 25);
     position: absolute;
     margin-left: 9%;
-}
-
-.typesMenu{
-    margin-top: 7%;
-}
-
-.p{
-    display: flex;
-    flex-direction: column;
-    color: rgb(227, 225, 225);
-    margin: 1%;
 }

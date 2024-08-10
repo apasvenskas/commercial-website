@@ -92,7 +92,7 @@ export default function MenuList() {
           </div>
         </div>
         <div className={styles.menuHeader}>
-          <h3>Categories</h3>
+          <h3 className={styles.header}>Categories</h3>
           <div className={styles.types}>
             {uniqueTypes.map((type, idx) => (
               <ListItem
@@ -100,8 +100,7 @@ export default function MenuList() {
                 item={{ type }}
                 onMouseOver={() => handleMouseOver(type)}
                 onMouseLeave={handleMouseLeave}
-                titles={hoveredType === type ? [] : []}
-                className={hoveredType === type ? styles.hover : ''}
+                className={hoveredType === type ? styles.hover : styles.typeItem}
               />
             ))}
           </div>
@@ -110,6 +109,7 @@ export default function MenuList() {
     </div>
   );
 }
+
 
 
 
