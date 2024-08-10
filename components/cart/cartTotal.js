@@ -2,14 +2,13 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import styles from "./cartTotal.module.css";
 import Link from "next/link";
 
-function insertDecimal(num){
+function insertDecimal(num) {
   return (num / 100).toFixed(2);
 }
 
 export default function CartTotal({ total, shipping }) {
-
   const finalPrice = insertDecimal(total * 100 + shipping * 100);
-  const {user} = useUser(); 
+  const { user } = useUser();
   // console.log('user is', user)
 
   return (
@@ -35,12 +34,14 @@ export default function CartTotal({ total, shipping }) {
           <div className={styles.btn}>
             {user && !user.email_verified ? (
               <button className={styles.button}>Verify your email</button>
-            ): user && user.email_verified ? (
-              <Link href={'/user/checkout'}>
-              <button className={styles.button}>Proceed to checkout</button>
+            ) : user && user.email_verified ? (
+              <Link href={"/user/checkout"}>
+                <button className={styles.button}>Proceed to checkout</button>
               </Link>
             ) : (
-              <button className={styles.button}>Login to proceed</button>
+              <Link href={"/user/login"}>
+                <button className={styles.button}>Login to proceed</button>
+              </Link>
             )}
           </div>
         </div>
