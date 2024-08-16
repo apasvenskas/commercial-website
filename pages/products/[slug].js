@@ -203,6 +203,7 @@ export default function SlugPage({ product }) {
   );
 }
 
+
 export async function getServerSideProps(context) {
   const currentSlug = context.params.slug;
 

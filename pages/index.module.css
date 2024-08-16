@@ -51,11 +51,17 @@
     }
 }
 
-@media (max-width: 500px) {
+@media (min-width: 300px) and (max-width: 450px){
+    .card {
+      margin-left: -7%;
+    }
+}
+
+/* @media (max-width: 500px) {
     .card {
         margin-left: 0%;
     }
-}
+} */
 
 @media (min-width: 501px) and (max-width: 595px){
     .card {
