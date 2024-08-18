@@ -6,9 +6,8 @@ import styles from "./[slug].module.css";
 import { RichText } from "@graphcms/rich-text-react-renderer";
 import Link from "next/link";
 import Image from "next/image";
-import { useProductContext } from '@/src/state/context/productContext';
-import Zoom from "react-medium-image-zoom";
-import "react-medium-image-zoom/dist/styles.css";
+import { useProductContext } from "@/src/state/context/productContext";
+import ReactImageMagnify from "react-image-magnify";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -179,15 +178,30 @@ export default function SlugPage({ product }) {
                   mainImagesSrc.map((image, index) => (
                     <div key={index} className={styles.imageContainer}>
                       <div className={styles.zoomContainer}>
-                        <Zoom>
-                          <Image
-                            src={image.url}
-                            height={200}
-                            width={200}
-                            alt={`Painting`}
-                            className={styles.img}
+                        <a
+                          href={image.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <ReactImageMagnify
+                            {...{
+                              smallImage: {
+                                alt: "Painting",
+                                isFluidWidth: true,
+                                src: image.url,
+                              },
+                              largeImage: {
+                                src: image.url,
+                                width: 1200,
+                                height: 1800,
+                              },
+                              enlargedImagePosition: "over", // "over" will overlay the large image on the small image
+                              isHintEnabled: true,
+                              shouldUsePositiveSpaceLens: true,
+                              className: styles.img,
+                            }}
                           />
-                        </Zoom>
+                        </a>
                       </div>
                     </div>
                   ))
@@ -202,7 +216,6 @@ export default function SlugPage({ product }) {
     </>
   );
 }
-
 
 export async function getServerSideProps(context) {
   const currentSlug = context.params.slug;

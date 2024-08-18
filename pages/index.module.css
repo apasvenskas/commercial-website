@@ -57,12 +57,6 @@
     }
 }
 
-/* @media (max-width: 500px) {
-    .card {
-        margin-left: 0%;
-    }
-} */
-
 @media (min-width: 501px) and (max-width: 595px){
     .card {
       margin-left: 15%;
