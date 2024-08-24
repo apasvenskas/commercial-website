@@ -59,6 +59,8 @@ export default function SlugPage({ product }) {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
+    prevArrow: <div className="custom-prev-arrow">{"<"}</div>,
+    nextArrow: <div className="custom-next-arrow">{">"}</div>,
     responsive: [
       {
         breakpoint: 768,
@@ -195,7 +197,7 @@ export default function SlugPage({ product }) {
                                 width: 1200,
                                 height: 1800,
                               },
-                              enlargedImagePosition: "over", // "over" will overlay the large image on the small image
+                              enlargedImagePosition: "over",
                               isHintEnabled: true,
                               shouldUsePositiveSpaceLens: true,
                               className: styles.img,
@@ -216,6 +218,7 @@ export default function SlugPage({ product }) {
     </>
   );
 }
+
 
 export async function getServerSideProps(context) {
   const currentSlug = context.params.slug;

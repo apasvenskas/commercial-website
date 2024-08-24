@@ -67,10 +67,8 @@ export default function Checkout() {
           {amount > 50 && <PaypalButton cart={cart} cartAmount={amount} />}
         </div>
         <div className={styles.tesInfo}>
-          <h4>Test Card info:</h4>
-          <h4>Card number: 4020023192466258</h4>
-          <h4>Expiry date: 01/2028</h4>
-          <h4>CVC code: 907</h4>
+          <h4>Thank you, for shopping with us!</h4>
+          <p>Hope to see you back soon</p>
         </div>
       </div>
     </>

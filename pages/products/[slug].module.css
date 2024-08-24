@@ -128,13 +128,13 @@
     background-color: rgba(0, 0, 0, 0.8); /* Darken the color on hover */
   }
   
-  .custom-prev-arrow {
-    left: -25px; /* Adjust positioning as needed */
+  /* .custom-prev-arrow {
+    left: -25px; 
   }
   
   .custom-next-arrow {
-    right: -25px; /* Adjust positioning as needed */
-  }
+    right: -25px; 
+  } */
   
   
 
