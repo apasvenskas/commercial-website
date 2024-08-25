@@ -2,22 +2,22 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "./navigation.module.css";
 import { useEffect, useState } from "react";
-import { useProductContext } from '@/src/state/context/productContext';
+import { useProductContext } from "@/src/state/context/productContext";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import SearchBar from "../searchBar/searchBar";
 
-export default function Navigation() {
-  const {user} = useUser();
-  // console.log("user", user)
-  
-  // logic for cart items showing up in the cart
+export default function Navigation({allPaintings}) {
+  const { user } = useUser();
   const [loading, setLoading] = useState(true);
+  const { cart } = useProductContext();
+  const [filteredPaintings, setFilteredPaintings] = useState(allPaintings);
+
 
   useEffect(() => {
     setLoading(false);
   }, []);
 
-  const { cart } = useProductContext();
-
+  
   const allItemsFromCart = [];
 
   if (!loading) {
@@ -32,7 +32,13 @@ export default function Navigation() {
     initialAmount
   );
 
-  // console.log("cart items nav", itemsInCart);
+  const handleSearch = (query) => {
+    const filtered = allPaintings.filter(painting => 
+      painting.title.toLowerCase().includes(query.toLowerCase()) ||
+      painting.subtitle.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredPaintings(filtered);
+  };
 
   return (
     <div className={styles.topHeader}>
@@ -43,6 +49,11 @@ export default function Navigation() {
           </h1>
         </Link>
       </div>
+
+      <div>
+        <SearchBar onSearch={handleSearch} allPaintings={allPaintings} />
+      </div>
+
       <nav className={styles.nav}>
         {/* <ul className={styles.link}>
           <li>
@@ -56,9 +67,11 @@ export default function Navigation() {
         </ul>
         <ul className={styles.link}>
           <li>
-           {user ? (<Link href="/user/logout">Logout</Link>) : (
+            {user ? (
+              <Link href="/user/logout">Logout</Link>
+            ) : (
               <Link href="/user/login">Login</Link>
-           )}
+            )}
           </li>
         </ul>
         <ul className={styles.link}>
