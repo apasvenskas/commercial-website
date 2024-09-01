@@ -10,7 +10,8 @@ export default function Navigation({allPaintings}) {
   const { user } = useUser();
   const [loading, setLoading] = useState(true);
   const { cart } = useProductContext();
-  const [filteredPaintings, setFilteredPaintings] = useState(allPaintings);
+  const [filteredPaintings, setFilteredPaintings] = useState([]);
+  const [showResults, setShowResults] = useState(false);
 
   useEffect(() => {
     setLoading(false);
@@ -41,9 +42,8 @@ export default function Navigation({allPaintings}) {
     if (typeof input === 'string') {
       query = input;
     } else if (Array.isArray(input) && input.length > 0 && typeof input[0] === 'object') {
-      // If input is an array of objects, we'll use the first object's properties
       const firstItem = input[0];
-      query = firstItem.title || firstItem.artist || '';
+      query = firstItem.title || firstItem.type || '';
       console.log('Using first item for search:', query);
     } else {
       console.error('Unexpected search input:', input);
@@ -51,14 +51,14 @@ export default function Navigation({allPaintings}) {
     }
 
     const lowercaseQuery = query.toLowerCase();
-    const filtered = allPaintings.filter(painting => {
-      return (
-        (painting.title && painting.title.toLowerCase().includes(lowercaseQuery)) ||
-        (painting.subtitle && painting.subtitle.toLowerCase().includes(lowercaseQuery)) ||
-        (painting.artist && painting.artist.toLowerCase().includes(lowercaseQuery))
-      );
-    });
+    const filtered = allPaintings.filter(painting => 
+      (painting.title && painting.title.toLowerCase().includes(lowercaseQuery)) ||
+      (painting.subtitle && painting.subtitle.toLowerCase().includes(lowercaseQuery)) ||
+      (painting.type && painting.type.toLowerCase().includes(lowercaseQuery))
+    );
+
     setFilteredPaintings(filtered);
+    setShowResults(query.length > 0);
   };
 
   return (
@@ -71,8 +71,34 @@ export default function Navigation({allPaintings}) {
         </Link>
       </div>
 
-      <div>
+      <div className={styles.searchContainer}>
         <SearchBar onSearch={handleSearch} allPaintings={allPaintings} />
+        {showResults && (
+          <div className={styles.searchResults}>
+            {filteredPaintings.length > 0 ? (
+              filteredPaintings.map((painting) => (
+                <Link href={`/products/${painting.slug}`} key={painting.id}>
+                  <div className={styles.searchResultItem}>
+                    {painting.images && painting.images[0] && (
+                      <Image 
+                        src={painting.images[0].url} 
+                        alt={painting.title} 
+                        width={50} 
+                        height={50} 
+                      />
+                    )}
+                    <div>
+                      <p>{painting.title}</p>
+                      <p>{painting.type}</p>
+                    </div>
+                  </div>
+                </Link>
+              ))
+            ) : (
+              <p>No results found</p>
+            )}
+          </div>
+        )}
       </div>
 
       <nav className={styles.nav}>
