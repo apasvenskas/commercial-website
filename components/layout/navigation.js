@@ -12,11 +12,13 @@ export default function Navigation({allPaintings}) {
   const { cart } = useProductContext();
   const [filteredPaintings, setFilteredPaintings] = useState(allPaintings);
 
-
   useEffect(() => {
     setLoading(false);
   }, []);
 
+  useEffect(() => {
+    console.log('allPaintings:', allPaintings);
+  }, [allPaintings]);
   
   const allItemsFromCart = [];
 
@@ -32,11 +34,30 @@ export default function Navigation({allPaintings}) {
     initialAmount
   );
 
-  const handleSearch = (query) => {
-    const filtered = allPaintings.filter(painting => 
-      painting.title.toLowerCase().includes(query.toLowerCase()) ||
-      painting.subtitle.toLowerCase().includes(query.toLowerCase())
-    );
+  const handleSearch = (input) => {
+    console.log('handleSearch input:', input);
+
+    let query = '';
+    if (typeof input === 'string') {
+      query = input;
+    } else if (Array.isArray(input) && input.length > 0 && typeof input[0] === 'object') {
+      // If input is an array of objects, we'll use the first object's properties
+      const firstItem = input[0];
+      query = firstItem.title || firstItem.artist || '';
+      console.log('Using first item for search:', query);
+    } else {
+      console.error('Unexpected search input:', input);
+      return;
+    }
+
+    const lowercaseQuery = query.toLowerCase();
+    const filtered = allPaintings.filter(painting => {
+      return (
+        (painting.title && painting.title.toLowerCase().includes(lowercaseQuery)) ||
+        (painting.subtitle && painting.subtitle.toLowerCase().includes(lowercaseQuery)) ||
+        (painting.artist && painting.artist.toLowerCase().includes(lowercaseQuery))
+      );
+    });
     setFilteredPaintings(filtered);
   };
 
@@ -55,11 +76,6 @@ export default function Navigation({allPaintings}) {
       </div>
 
       <nav className={styles.nav}>
-        {/* <ul className={styles.link}>
-          <li>
-            <Link href={`/products/artist`}>Artist</Link>
-          </li>
-        </ul> */}
         <ul className={styles.link}>
           <li>
             <Link href="/all-art">All Art</Link>
