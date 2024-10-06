@@ -4,8 +4,8 @@ import styles from "./navigation.module.css";
 import { useEffect, useState } from "react";
 import { useProductContext } from "@/src/state/context/productContext";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { useRouter } from 'next/router'; // Import Next.js router
-import SearchBar from "../searchBar/searchBar"; // SearchBar now redirects
+import { useRouter } from 'next/router'; 
+import SearchBar from "../searchBar/searchBar"; 
 
 export default function Navigation({ allPaintings }) {
   const { user } = useUser();

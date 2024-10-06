@@ -1,9 +1,13 @@
-import { GraphQLClient, gql } from 'graphql-request';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import useGetPaintingDetails from '../../utils/useGetPainitngsDetails'; // Adjust the path if needed
+import { GraphQLClient, gql } from "graphql-request";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import useGetPaintingDetails from "../../utils/useGetPainitngsDetails";
+import MenuList from "@/components/menuList/menuList";
+import TheBar from "@/components/product/theBar";
+import ProductCard from "../../components/product/productCard";
+import Styles from "./searchResults.module.css";
+// import { useState } from "react/cjs/react.development";
 
-// Set up the GraphQL client with Hygraph endpoint and token
 const hygraph = new GraphQLClient(process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT, {
   headers: {
     Authorization: `Bearer ${process.env.NEXT_PUBLIC_HYGRAPH_TOKEN}`,
@@ -13,38 +17,42 @@ const hygraph = new GraphQLClient(process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT, {
 export default function SearchResults({ allPaintings }) {
   const router = useRouter();
   const { query } = router.query;
+  // const [theBarTitle, setTheBarTitle] = useState("New Paintings");
+
+  // useEffect(() => {
+  //   if (type) {
+  //     setTheBarTitle(capitalizeFirstLetter(type));
+  //   }
+  // }, [type]);
 
   if (!query) return <p>Loading...</p>;
 
-  const filteredPaintings = allPaintings.filter((painting) =>
-    painting.title.toLowerCase().includes(query?.toLowerCase()) ||
-    painting.subtitle.toLowerCase().includes(query?.toLowerCase())
+  const filteredPaintings = allPaintings.filter(
+    (painting) =>
+      painting.title.toLowerCase().includes(query?.toLowerCase()) ||
+      painting.subtitle.toLowerCase().includes(query?.toLowerCase())
   );
 
   return (
-    <div>
-      <h1>Search Results for: {query}</h1>
+    <div className={Styles.body}>
+      <div className={Styles.menuDiv}>
+        <MenuList />
+      </div>
       {filteredPaintings.length > 0 ? (
-        filteredPaintings.map((painting) => {
-          // Use the custom hook to get painting details
-          const paintingDetails = useGetPaintingDetails(painting);
-
-          return (
-            <Link key={paintingDetails.id} href={`/products/${paintingDetails.id}`}>
-              <div>
-                <h2>{paintingDetails.title}</h2>
-                <p>{paintingDetails.subtitle}</p>
-                {paintingDetails.mainImgSrc && (
-                  <img src={paintingDetails.mainImgSrc} alt={paintingDetails.title} />
-                )}
-                <p>Price: ${paintingDetails.price}</p>
-                {paintingDetails.discountPercent > 0 && (
-                  <p>Discounted Price: ${paintingDetails.discountPrice}</p>
-                )}
+        filteredPaintings.map((painting) => (
+          <div className={Styles.mainSection} key={painting.id}>
+            <div className={Styles.contentBox}>
+              <div className={Styles.theBarContainer}>
+                <TheBar 
+                // title={theBarTitle} 
+                className={Styles.theBar}
+                />
               </div>
-            </Link>
-          );
-        })
+              {/* Using ProductCard to display painting */}
+              <ProductCard item={painting} />
+            </div>
+          </div>
+        ))
       ) : (
         <p>No results found</p>
       )}
@@ -75,7 +83,6 @@ export async function getServerSideProps() {
     }
   `;
 
-  // Fetch data from Hygraph using the GraphQL client
   const allPaintings = await hygraph.request(query);
 
   return {

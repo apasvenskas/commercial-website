@@ -20,7 +20,7 @@ function capitalizeFirstLetter(string) {
 }
 
 export default function Home({ data }) {
-  FetchUsers(); 
+  FetchUsers();
   const router = useRouter();
   const { type } = router.query;
   // console.log('index type', type)
@@ -44,34 +44,36 @@ export default function Home({ data }) {
 
   return (
     <>
-    <Head>
+      <Head>
         <title>{theBarTitle}</title>
         <meta name="description" content="New art from Laisvieji Menininkai" />
       </Head>
-    <div className={styles.body}>
-      <div className={styles.menuDiv}>
-        <MenuList className="menu" />
-      </div>
-      <div className={styles.mainSection}>
-        <div className={styles.theBarContainer}>
-          <TheBar title={theBarTitle} className={styles.theBar} />
+      <div className={styles.body}>
+        <div className={styles.menuDiv}>
+          <MenuList className="menu" />
         </div>
-        <div className={styles.card}>
-          {myItems.map((item) => (
-            <Link href={`/products/${item.slug}`} key={item.id} legacyBehavior>
-              <a>
-                <ProductCard item={item} />
-              </a>
-            </Link>
-          ))}
+        <div className={styles.mainSection}>
+          <div className={styles.theBarContainer}>
+            <TheBar title={theBarTitle} className={styles.theBar} />
+          </div>
+          <div className={styles.card}>
+            {myItems.map((item) => (
+              <Link
+                href={`/products/${item.slug}`}
+                key={item.id}
+                legacyBehavior
+              >
+                <a>
+                  <ProductCard item={item} />
+                </a>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
     </>
   );
 }
-
-
 
 const MyQuery = gql`
   {
