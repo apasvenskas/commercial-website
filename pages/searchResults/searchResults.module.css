@@ -18,11 +18,13 @@
 }
 
 .theBarContainer {
-    width: 100%;
+    width: 315.5%;
+    margin-bottom: 5%;
 }
 
 .theBar {
     width: 100%;
+
 }
 
 .card {

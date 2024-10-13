@@ -1,12 +1,12 @@
 import { GraphQLClient, gql } from "graphql-request";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import useGetPaintingDetails from "../../utils/useGetPainitngsDetails";
 import MenuList from "@/components/menuList/menuList";
 import TheBar from "@/components/product/theBar";
 import ProductCard from "../../components/product/productCard";
 import Styles from "./searchResults.module.css";
-// import { useState } from "react/cjs/react.development";
 
 const hygraph = new GraphQLClient(process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT, {
   headers: {
@@ -14,16 +14,20 @@ const hygraph = new GraphQLClient(process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT, {
   },
 });
 
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
+
 export default function SearchResults({ allPaintings }) {
   const router = useRouter();
   const { query } = router.query;
-  // const [theBarTitle, setTheBarTitle] = useState("New Paintings");
+  const [theBarTitle, setTheBarTitle] = useState("Search Results");
 
-  // useEffect(() => {
-  //   if (type) {
-  //     setTheBarTitle(capitalizeFirstLetter(type));
-  //   }
-  // }, [type]);
+  useEffect(() => {
+    if (query) {
+      setTheBarTitle(`Results for "${capitalizeFirstLetter(query)}"`);
+    }
+  }, [query]);
 
   if (!query) return <p>Loading...</p>;
 
@@ -38,24 +42,22 @@ export default function SearchResults({ allPaintings }) {
       <div className={Styles.menuDiv}>
         <MenuList />
       </div>
-      {filteredPaintings.length > 0 ? (
-        filteredPaintings.map((painting) => (
-          <div className={Styles.mainSection} key={painting.id}>
-            <div className={Styles.contentBox}>
-              <div className={Styles.theBarContainer}>
-                <TheBar 
-                // title={theBarTitle} 
-                className={Styles.theBar}
-                />
+      <div>
+        <div className={Styles.theBarContainer}>
+          <TheBar title={theBarTitle} className={Styles.theBar} />
+        </div>
+        {filteredPaintings.length > 0 ? (
+          filteredPaintings.map((painting) => (
+            <div className={Styles.mainSection} key={painting.id}>
+              <div className={Styles.contentBox}>
+                <ProductCard item={painting} />
               </div>
-              {/* Using ProductCard to display painting */}
-              <ProductCard item={painting} />
             </div>
-          </div>
-        ))
-      ) : (
-        <p>No results found</p>
-      )}
+          ))
+        ) : (
+          <p>No results found</p>
+        )}
+      </div>
     </div>
   );
 }
@@ -91,3 +93,4 @@ export async function getServerSideProps() {
     },
   };
 }
+
