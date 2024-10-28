@@ -47,18 +47,19 @@ export default function SearchResults({ allPaintings }) {
           <TheBar title={theBarTitle} className={Styles.theBar} />
         </div>
         <div className={Styles.searchResults}>
-        {filteredPaintings.length > 0 ? (
-          filteredPaintings.map((painting) => (
-            <div className={Styles.mainSection} key={painting.id}>
-              <div className={Styles.contentBox}>
-                <ProductCard item={painting} />
+          {filteredPaintings.length > 0 ? (
+            filteredPaintings.map((painting) => (
+              <div className={Styles.mainSection} key={painting.id}>
+                <div className={Styles.contentBox}>
+                  <Link href={`/products/${painting.slug}`} key={painting.id}>
+                    <ProductCard item={painting} />
+                  </Link>
+                </div>
               </div>
-            </div>
-            
-          ))
-        ) : (
-          <p>No results found</p>
-        )}
+            ))
+          ) : (
+            <p>No results found</p>
+          )}
         </div>
       </div>
     </div>
@@ -96,4 +97,3 @@ export async function getServerSideProps() {
     },
   };
 }
-
