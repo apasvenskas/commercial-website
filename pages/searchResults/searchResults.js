@@ -42,10 +42,11 @@ export default function SearchResults({ allPaintings }) {
       <div className={Styles.menuDiv}>
         <MenuList />
       </div>
-      <div>
+      <div className={Styles.contentContainer}>
         <div className={Styles.theBarContainer}>
           <TheBar title={theBarTitle} className={Styles.theBar} />
         </div>
+        <div className={Styles.searchResults}>
         {filteredPaintings.length > 0 ? (
           filteredPaintings.map((painting) => (
             <div className={Styles.mainSection} key={painting.id}>
@@ -53,10 +54,12 @@ export default function SearchResults({ allPaintings }) {
                 <ProductCard item={painting} />
               </div>
             </div>
+            
           ))
         ) : (
           <p>No results found</p>
         )}
+        </div>
       </div>
     </div>
   );

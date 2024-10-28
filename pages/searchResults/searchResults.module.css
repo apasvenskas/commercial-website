@@ -9,17 +9,19 @@
     margin-left: 5%;
 }
 
-.mainSection {
-    width: 100%;
-    margin-right: 5%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* .mainSection {
+
+} */
+
+
+.contentContainer{
+  width: 100%;
+  margin-right: 5%;
 }
 
 .theBarContainer {
-    width: 315.5%;
-    margin-bottom: 5%;
+    width: 100%;
+    /* margin-bottom: 5%; */
 }
 
 .theBar {
@@ -27,16 +29,16 @@
 
 }
 
-.card {
-    margin-left: 7%;
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin-top: 3%;
-    gap: 5%;
-    width: 100%;
-    margin-bottom: 5%;
+.searchResults {
+  flex: 1;
+  margin-left: 1%;
+  /* align-items: center; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 1%;
+  gap: 5%;
+  width: 100%;
 }
 
 @media (min-height: 1000px) {
