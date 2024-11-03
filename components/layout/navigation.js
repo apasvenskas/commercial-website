@@ -11,7 +11,7 @@ export default function Navigation({ allPaintings }) {
   const { user } = useUser();
   const [loading, setLoading] = useState(true);
   const { cart } = useProductContext();
-  const router = useRouter(); // Initialize router
+  const router = useRouter();
 
   useEffect(() => {
     setLoading(false);
@@ -42,11 +42,15 @@ export default function Navigation({ allPaintings }) {
       </div>
 
       <div className={styles.searchContainer}>
-        {/* Updated SearchBar now redirects to the dynamic searchResults page */}
         <SearchBar />
       </div>
 
       <nav className={styles.nav}>
+      <ul className={styles.link}>
+          <li>
+            <Link href="/products/artist">Artist</Link>
+          </li>
+        </ul>
         <ul className={styles.link}>
           <li>
             <Link href="/all-art">All Art</Link>
