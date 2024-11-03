@@ -22,7 +22,7 @@ const ArtistsPage = () => {
         <MenuList />
       </div>
       <div className={styles.topbar}>
-        <TheBar />
+        <TheBar title= "Artists" className={styles.theBar}/>
         <ul className={styles.artist}>
           {artists.map((artist) => (
             <li key={artist.slug}>
