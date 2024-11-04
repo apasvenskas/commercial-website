@@ -1,107 +1,82 @@
-import React, { useEffect, useState } from "react";
-import { GraphQLClient, gql } from "graphql-request";
-import { useRouter } from "next/router";
-import TheBar from "@/components/product/theBar";
-import MenuList from "@/components/menuList/menuList";
-import styles from "./index.module.css";
 import Link from "next/link";
-import ProductCard from "@/components/product/productCard";
-import FetchUsers from "@/utils/fetchUsers";
+import { GraphQLClient, gql } from "graphql-request";
+import MenuList from "@/components/menuList/menuList";
+import TheBar from "@/components/product/theBar";
+import styles from "./index.module.css";
 import Head from "next/head";
 
-const hygraph = new GraphQLClient(process.env.HYGRAPH_ENDPOINT, {
-  headers: {
-    Authorization: `Bearer ${process.env.HYGRAPH_TOKEN}`,
-  },
-});
+const hygraph = new GraphQLClient(
+  process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT || process.env.HYGRAPH_ENDPOINT,
+  {
+    headers: {
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_HYGRAPH_TOKEN || process.env.HYGRAPH_TOKEN}`,
+    },
+  }
+);
 
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-}
-
-export default function Home({ data }) {
-  FetchUsers();
-  const router = useRouter();
-  const { type } = router.query;
-  // console.log('index type', type)
-  const [theBarTitle, setTheBarTitle] = useState("New Paintings");
-
-  useEffect(() => {
-    if (type) {
-      setTheBarTitle(capitalizeFirstLetter(type));
-    }
-  }, [type]);
-
-  const productsArray = Object.values(data);
-
-  let myItems = [];
-
-  productsArray.forEach((item) => {
-    item.forEach((item) => {
-      myItems.push(item);
-    });
-  });
+const ArtistsPage = ({ data }) => {
+  // Get unique artists from the paintings data
+  const uniqueArtists = [...new Set(data.paintings.map(painting => painting.artist))];
+  
+  // Create artist objects with slugs
+  const artists = uniqueArtists.map(artistName => ({
+    name: artistName,
+    slug: artistName.toLowerCase().replace(/\s+/g, '-') // Create slug from artist name
+  }));
 
   return (
     <>
       <Head>
-        <title>{theBarTitle}</title>
-        <meta name="description" content="New art from Laisvieji Menininkai" />
+        <title>Artists</title>
+        <meta name="description" content="The artists associated with Laisvieji Menininkai" />
       </Head>
-      <div className={styles.body}>
-        <div className={styles.menuDiv}>
-          <MenuList className="menu" />
+      <section className={styles.body}>
+        <div className={styles.menu}>
+          <MenuList />
         </div>
-        <div className={styles.mainSection}>
-          <div className={styles.theBarContainer}>
-            <TheBar title={theBarTitle} className={styles.theBar} />
-          </div>
-          <div className={styles.card}>
-            {myItems.map((item) => (
-              <Link
-                href={`/products/${item.slug}`}
-                key={item.id}
-                legacyBehavior
-              >
-                <a>
-                  <ProductCard item={item} />
-                </a>
-              </Link>
+        <div className={styles.topbar}>
+          <TheBar title="Artists" className={styles.theBar}/>
+          <ul className={styles.artist}>
+            {artists.map((artist) => (
+              <li key={artist.slug}>
+                <Link href={`/products/artist/${artist.slug}`} legacyBehavior>
+                  <a>{artist.name}</a>
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
-      </div>
+      </section>
     </>
   );
-}
+};
 
-const MyQuery = gql`
+// Using the same query structure as your home page
+const ArtistsQuery = gql`
   {
-    paintings(where: { OR: { newProduct: true } }) {
+    paintings {
       artist
-      discountPercent
       id
-      price
-      promotion
-      title
-      type
-      slug
-      newProduct
-      images {
-        url
-      }
-      description {
-        raw
-      }
     }
   }
 `;
 
 export async function getServerSideProps() {
-  const data = await hygraph.request(MyQuery);
-  return {
-    props: {
-      data: data,
-    },
-  };
+  try {
+    const data = await hygraph.request(ArtistsQuery);
+    return {
+      props: {
+        data: data,
+      },
+    };
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    return {
+      props: {
+        data: { paintings: [] }, // Return empty array if there's an error
+      },
+    };
+  }
 }
+
+export default ArtistsPage;
