@@ -15,13 +15,22 @@ const hygraph = new GraphQLClient(
 );
 
 const ArtistsPage = ({ data }) => {
-  // Get unique artists from the paintings data
-  const uniqueArtists = [...new Set(data.paintings.map(painting => painting.artist))];
-  
-  // Create artist objects with slugs
-  const artists = uniqueArtists.map(artistName => ({
+  // Get unique artists and their associated titles
+  const artistData = data.paintings.reduce((acc, painting) => {
+    if (!acc[painting.artist]) {
+      acc[painting.artist] = {
+        titles: [],
+        slug: painting.artist.toLowerCase().replace(/\s+/g, '-'),
+      };
+    }
+    acc[painting.artist].titles.push(painting.title);
+    return acc;
+  }, {});
+
+  const artists = Object.keys(artistData).map((artistName) => ({
     name: artistName,
-    slug: artistName.toLowerCase().replace(/\s+/g, '-') // Create slug from artist name
+    slug: artistData[artistName].slug,
+    titles: artistData[artistName].titles,
   }));
 
   return (
@@ -35,27 +44,35 @@ const ArtistsPage = ({ data }) => {
           <MenuList />
         </div>
         <div className={styles.topbar}>
-          <TheBar title="Artists" className={styles.theBar}/>
-          <ul className={styles.artist}>
+          <TheBar title="Artists" className={styles.theBar} />
+          <div className={styles.artistsGrid}>
             {artists.map((artist) => (
-              <li key={artist.slug}>
+              <div key={artist.slug} className={styles.artistCard}>
                 <Link href={`/products/artist/${artist.slug}`} legacyBehavior>
-                  <a>{artist.name}</a>
+                  <a className={styles.artistLink}>{artist.name}</a>
                 </Link>
-              </li>
+                <div className={styles.titles}>
+                  {artist.titles.map((title, index) => (
+                    <p key={index} className={styles.title}>
+                      {title}
+                    </p>
+                  ))}
+                </div>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       </section>
     </>
   );
 };
 
-// Using the same query structure as your home page
+// Updated GraphQL query to include titles
 const ArtistsQuery = gql`
   {
     paintings {
       artist
+      title
       id
     }
   }
