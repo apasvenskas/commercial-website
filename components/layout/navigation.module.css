@@ -1,86 +1,108 @@
 .topHeader {
-    display: flex;
-    justify-content: space-between;
-    background-color: #b6ab8e;
+  display: flex;
+  justify-content: space-between;
+  background-color: #b6ab8e;
 }
 
 .name {
-    margin-top: 1.5%;
-    margin-bottom: 1%;
-    margin-left: 5%;
-    text-align: start;
+  margin-top: 1.5%;
+  margin-bottom: 1%;
+  margin-left: 5%;
+  text-align: start;
 }
 
 .nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; 
-    flex: .4; 
-    margin-right: 5%; 
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  flex: .4; 
+  margin-right: 5%; 
 }
 
 .link {
-    display: flex; 
-    padding: 0; 
-    margin: 0 1%; 
-    list-style: none; 
+  display: flex; 
+  padding: 0; 
+  margin: 0 1%; 
+  list-style: none; 
 }
 
 .cartWrapper {
-    margin-right: 3%;
+  margin-right: 3%;
 }
 
 .fullCart {
-    position: relative;
-    display: inline-block;
-  }
+  position: relative;
+  display: inline-block;
+}
+
+.cart {
+  position: relative;
+}
+
+.itemsInCart {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orangeBox {
+  position:absolute;
+  z-index: 1;
+}
+
+.numbers {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  color: white; /* or any color that makes the number visible */
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+}
+
+/* Add this media query */
+@media (max-width: 815px) {
+.nav {
+    /* flex-direction: column;
+    align-items: flex-start; */
+    margin: 0%;
+    min-width: 50%;
+    margin-bottom: 2%;
+    margin-top: 3%;
+    background-color:rgb(240, 225, 205);
+    padding: 1%;
+    border-radius: 10px;
+}
+.nav a {
+    margin-bottom: 10px; /* Add some spacing between nav links */
+}
+.topHeader{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.name{
+  margin-right: 55%;
   
-  .cart {
-    position: relative;
-  }
-  
-  .itemsInCart {
-    position: absolute;
-    top: 0;
-    left: 0;
+}
+}
+
+@media (min-width: 815px) and (max-width: 1040px) {
+  .nav {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between; 
+    flex: .6; 
+    margin-right: 5%; 
   }
-  
-  .orangeBox {
-    position:absolute;
-    z-index: 1;
-  }
-  
-  .numbers {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    color: white; /* or any color that makes the number visible */
-    font-weight: bold;
-    font-size: 12px;
-    line-height: 18px;
-    text-align: center;
-  }
-
-  /* Add this media query */
-@media (max-width: 815px) {
-  .nav {
-      /* flex-direction: column;
-      align-items: flex-start; */
-      margin: 0%;
-      min-width: 50%;
-      margin-bottom: 2%;
-      margin-top: 3%;
-      background-color:rgb(240, 225, 205);
-      padding: 1%;
-      border-radius: 10px;
-  }
-  .nav a {
-      margin-bottom: 10px; /* Add some spacing between nav links */
+  /* .nav a {
+      margin-bottom: 10px; 
   }
   .topHeader{
     display: flex;
@@ -90,20 +112,20 @@
   .name{
     margin-right: 55%;
     
+  } */
   }
-}
 
 @media (max-width: 500px){
 .nav{
-  min-width: 70%;
+min-width: 70%;
 }
 }
 
 @media (max-width: 350px){
-  .nav{
-    min-width: 90%;
-  }
-  }
+.nav{
+  min-width: 90%;
+}
+}
 
 
 
